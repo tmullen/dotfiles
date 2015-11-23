@@ -1,0 +1,26 @@
+" position of split windows
+set splitbelow splitright
+
+" set alternate escape
+imap jj <Esc>
+
+" turn search highlight off
+nnoremap <silent> <leader><space> :noh<cr>
+
+" add column guide
+if exists("+colorcolumn")
+  set colorcolumn=80
+endif
+
+if has("gui_running")
+  set guioptions-=e
+end
+
+" add spell checking and automatic wrapping at the recommended 72 columns to you
+" commit messages
+"
+" http://robots.thoughtbot.com/post/48933156625/5-useful-tips-for-a-better-commit-message
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+" ES6 support
+autocmd BufRead,BufNewFile *.es6 setfiletype javascript

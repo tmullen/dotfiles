@@ -10,6 +10,9 @@ let g:syntastic_quiet_messages = {'level': 'warnings'}
 " Default to eslint. If you need jshint, you can override this in
 " ~/.vimrc.after
 let g:syntastic_javascript_checkers = ['eslint']
+"
+"respect current rbenv version
+let g:syntastic_ruby_mri_exec = $HOME."/.rbenv/shims/ruby"
 
 " I have no idea why this is not working, as it used to
 " be a part of syntastic code but was apparently removed

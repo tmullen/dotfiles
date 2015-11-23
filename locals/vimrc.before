@@ -1,0 +1,11 @@
+" disable debugger key bindings
+let g:ruby_debugger_no_maps = 1
+
+" set custom folder for history
+let g:yankring_history_dir = '/tmp'
+
+" turn off solarized terminal
+" let g:yadr_using_unsolarized_terminal = 1
+
+" bypass YADR update prompt
+let g:session_autosave = 'no'

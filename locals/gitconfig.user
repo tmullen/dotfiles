@@ -1,0 +1,13 @@
+[alias]
+  sp = smart-pull
+  sm = smart-merge
+  br = branch -v
+  st = status
+[push]
+  default = current
+[user]
+  name  = Ted Mullen
+  email = tedmullen@gmail.com
+[credential]
+  helper = osxkeychain
+

@@ -11,7 +11,6 @@ task :install => [:submodule_init, :submodules] do
   puts
 
   install_homebrew if RUBY_PLATFORM.downcase.include?("darwin")
-  install_rvm_binstubs
 
   # this has all the runcoms from this directory.
   install_files(Dir.glob('git/*')) if want_to_install?('git configs (color, aliases)')
@@ -30,6 +29,8 @@ task :install => [:submodule_init, :submodules] do
   install_fonts
 
   install_term_theme if RUBY_PLATFORM.downcase.include?("darwin")
+
+  Rake::Task["install_customizations"].execute
 
   run_bundle_config
 
@@ -138,16 +139,6 @@ def run_bundle_config
   puts "Configuring Bundlers for parallel gem installation"
   puts "======================================================"
   run %{ bundle config --global jobs #{bundler_jobs} }
-  puts
-end
-
-def install_rvm_binstubs
-  puts "======================================================"
-  puts "Installing RVM Bundler support. Never have to type"
-  puts "bundle exec again! Please use bundle --binstubs and RVM"
-  puts "will automatically use those bins after cd'ing into dir."
-  puts "======================================================"
-  run %{ chmod +x $rvm_path/hooks/after_cd_bundler }
   puts
 end
 
@@ -367,4 +358,18 @@ def success_msg(action)
   puts "  (_______\_____|\____|_|      "
   puts ""
   puts "YADR has been #{action}. Please restart your terminal and vim."
+end
+
+task :install_customizations do
+  puts "======================================================"
+  puts "Custom: Installing Additional Homebrew Apps."
+  puts "======================================================"
+
+  run %{ brew bundle -v --file=brew/.Brewfile }
+
+  puts "======================================================"
+  puts "Custom: Updating Settings."
+  puts "======================================================"
+
+  install_files(Dir.glob('locals/*'))
 end

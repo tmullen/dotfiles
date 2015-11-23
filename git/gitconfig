@@ -100,6 +100,8 @@
   summary = true
   verbosity = 1
   tool = mvimdiff
+  strategy = recursive
+  strategy-option = patience
 [apply]
   whitespace = nowarn
 [branch]
@@ -107,11 +109,13 @@
 [push]
   # 'git push' will push the current branch to its tracking branch
   # the usual default is to push all branches
-  default = upstream
+  default = current
+[remote]
+  pushdefault = origin
 [core]
   autocrlf = false
   editor = vim
-  excludesfile = ~/.yadr/git/gitignore
+	excludesfile = /Users/tedmullen/.yadr/git/gitignore
 [advice]
   statusHints = false
 [diff]
@@ -125,3 +129,22 @@
   enabled = true
 [include]
   path = .gitconfig.user
+[commit]
+	gpgsign = true
+	template = /Users/tedmullen/.stCommitMsg
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[gpg]
+	program = /usr/local/bin/gpg
+[user]
+	name = Ted Mullen
+	email = tedmullen@gmail.com
+	signingkey = 81C5075270ACA201
