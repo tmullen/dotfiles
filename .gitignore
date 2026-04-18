@@ -1,0 +1,9 @@
+# Claude Code session state
+.remember/
+.claude/settings.local.json
+
+# Editor / OS junk
+*.swp
+*.swo
+*~
+.DS_Store
