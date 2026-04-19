@@ -28,5 +28,6 @@ stow -D nvim
 
 ## Packages
 
+- `bash` — Bash aliases layered on top of Omarchy defaults.
 - `git` — Git config and global ignore.
 - `nvim` — Neovim keymaps layered on top of LazyVim.
