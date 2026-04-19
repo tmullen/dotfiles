@@ -29,6 +29,7 @@ stow -D nvim
 ## Packages
 
 - `bash` — Bash aliases layered on top of Omarchy defaults.
+- `claude` — Claude Code user settings and status line script.
 - `git` — Git config and global ignore.
 - `lazygit` — Lazygit config.
 - `nvim` — Neovim keymaps layered on top of LazyVim.
