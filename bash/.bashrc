@@ -11,10 +11,9 @@ source ~/.local/share/omarchy/default/bash/rc
 alias be='bundle exec'
 
 # Git
-alias ga='git add -A'
 alias gbr='git branch'
 alias gco='git co'
-alias gd='git diff'
+alias gdf='git diff'
 alias gl='git l'
 alias gp='git push'
 alias gpf='git push --force-with-lease'
