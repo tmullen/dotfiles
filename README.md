@@ -28,4 +28,5 @@ stow -D nvim
 
 ## Packages
 
+- `git` — Git config and global ignore.
 - `nvim` — Neovim keymaps layered on top of LazyVim.
