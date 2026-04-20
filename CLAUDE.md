@@ -1,6 +1,6 @@
 # Dotfiles repo — working notes
 
-This repo holds personal [Omarchy](https://omarchy.org) customizations, managed with [GNU Stow](https://www.gnu.org/software/stow/). Read this before editing anything here or in `~/.config/`.
+This repo holds personal [Omarchy](https://omarchy.org) customizations, managed with [GNU Stow](https://www.gnu.org/software/stow/). Read this before editing anything here or under `$HOME` that a package targets (e.g. `~/.config/`, `~/.claude/`, top-level dotfiles).
 
 ## Layout
 
@@ -20,12 +20,12 @@ nvim/.config/nvim/lua/config/keymaps.lua  →  ~/.config/nvim/lua/config/keymaps
 
 ## Editing existing configs
 
-Files already tracked here are **symlinked** into `~/.config/`. Editing `~/.config/<pkg>/foo` transparently modifies the real file in this repo — that is fine, and expected. After editing, commit from this repo.
+Files already tracked here are **symlinked** into their target location under `$HOME`. Editing the target transparently modifies the real file in this repo — that is fine, and expected. After editing, commit from this repo.
 
-Before editing a config file anywhere under `~/.config/`, check whether it is a symlink pointing here:
+Before editing any file under `$HOME` that might be tracked, check whether it is a symlink pointing here:
 
 ```sh
-readlink -f ~/.config/<pkg>/<file>
+readlink -f <target-path>
 ```
 
 If it resolves into `~/Work/Personal/dotfiles/`, the source of truth is this repo.
@@ -36,23 +36,25 @@ If it resolves into `~/Work/Personal/dotfiles/`, the source of truth is this rep
 2. Re-run `stow <package>` from the repo root. Stow adds missing file-level symlinks without disturbing existing ones.
 3. Commit.
 
-Do **not** create the file directly under `~/.config/` and then try to move it — that creates an orphan outside the repo.
+Do **not** create the file directly at the target location and then try to move it — that creates an orphan outside the repo.
 
-## Adopting a file that already exists in `~/.config/` but not in this repo
+## Adopting a file that already exists under `$HOME` but not in this repo
+
+Applies to anything a package targets — `~/.config/<pkg>/…`, `~/.claude/…`, top-level dotfiles like `~/.bashrc`, etc. The workflow is the same regardless of where under `$HOME` the file lives.
 
 The existing file is the source of truth — **never replace, overwrite, or clobber it.** Move it into the repo so stow takes over:
 
 1. Confirm the file is a real file, not already a symlink into this repo:
    ```sh
-   readlink -f ~/.config/<pkg>/<path>/<file>
+   readlink -f <target-path>
    ```
-2. `mkdir -p <pkg>/.config/<pkg>/<path>/` to mirror the target path inside the package.
+2. `mkdir -p <pkg>/<target-path-relative-to-$HOME>/` (parent dirs) to mirror the target path inside the package.
 3. **Move** (do not copy) the file into the package:
    ```sh
-   mv ~/.config/<pkg>/<path>/<file> <pkg>/.config/<pkg>/<path>/<file>
+   mv <target-path> <pkg>/<target-path-relative-to-$HOME>
    ```
    Moving (not copying) guarantees there is no lingering real file at the target to collide with the symlink stow is about to create.
-4. Run `stow <pkg>` from the repo root. Stow creates the symlink `~/.config/<pkg>/<path>/<file>` → the file you just moved.
+4. Run `stow <pkg>` from the repo root. Stow creates the symlink at the target → the file you just moved.
 5. Verify with `readlink -f` that the symlink resolves into this repo.
 6. Now make your edits in the repo file. Commit.
 
