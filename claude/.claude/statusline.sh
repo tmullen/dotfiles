@@ -28,3 +28,4 @@ printf "${dim}%s" "$model"
 [ -n "$ctx" ] && printf " | ${ctx_color}${bold}%s%%${reset}${dim}" "$ctx"
 printf " | %s" "$dir"
 [ -n "$branch" ] && printf " | ${bold}${cyan}%s${dirty}${reset}" "$branch"
+exit 0
