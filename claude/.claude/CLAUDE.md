@@ -8,6 +8,7 @@
 - Be terse
 - Be casual unless otherwise specified
 - No praise or flattery is necessary
+- Be clear, concise and to the point in everything you do
 
 ## Coding Style
 

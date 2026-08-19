@@ -23,8 +23,8 @@ stow nvim
 ### Work Claude (`~/.claude-work`)
 
 The `cw` / `cwx` aliases (in `bash`) run Claude Code against a separate config
-dir, `~/.claude-work`, that shares its settings/skills with personal Claude.
-It's not a stow package — bootstrap its symlinks after `stow claude`:
+dir, `~/.claude-work`, that shares its CLAUDE.md/statusline/skills with personal
+Claude. It's not a stow package — bootstrap its symlinks after `stow claude`:
 
 ```sh
 ./bootstrap-claude-work.sh
@@ -32,6 +32,17 @@ It's not a stow package — bootstrap its symlinks after `stow claude`:
 
 Idempotent. Runtime state there (history, sessions, credentials) is machine-local
 and untracked.
+
+`settings.json` is **not** linked. Work Claude authenticates against AWS Bedrock
+(us-west-2) and `/setup-bedrock` writes the bearer token into that file's `env`
+block, so it has to stay real, untracked, and mode 600. `claude/.claude/settings.json`
+in this repo is the seed copy for a new machine:
+
+```sh
+cp claude/.claude/settings.json ~/.claude-work/settings.json
+chmod 600 ~/.claude-work/settings.json
+cw   # then run /setup-bedrock
+```
 
 ## Uninstall
 
