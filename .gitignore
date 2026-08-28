@@ -1,6 +1,7 @@
 # Claude Code session state
 .remember/
-.claude/settings.local.json
+claude/.claude/settings.json
+claude/.claude/settings.local.json
 
 # Editor / OS junk
 *.swp
