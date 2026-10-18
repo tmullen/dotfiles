@@ -1,4 +1,6 @@
-# Where DHH taste meets our house rules
+# Overlay: factory repo — where 37signals taste meets its house rules
+
+_Ported from the retired `dhh-review` skill. Read by review mode (`review.md` §1) when reviewing the factory repo._
 
 Read this before reporting anything. A finding that fights our own style guide is worse than no finding: it burns attention, and applied it fails CI or churns the diff.
 
@@ -38,7 +40,7 @@ Settled here, deliberately or empirically. Silence, not a softened note.
 
 Omakase disables **`Metrics` entirely** — no `MethodLength`, `ClassLength`, `AbcSize`, `ParameterLists` — plus all of `Naming` and most of `Style`. Deliberate: he doesn't want a linter arguing about size. So **nothing in this repo has an opinion about shape, size, naming, or whether an abstraction earns its place.** Spend your attention on:
 
-- Class length and the size of the public surface
+- Class length, and whether a big model has traits
 - Whether a 700-line model should be concerns
 - Whether an abstraction has enough callers to exist
 - Naming, past the mechanical stutter test in P14
@@ -46,7 +48,7 @@ Omakase disables **`Metrics` entirely** — no `MethodLength`, `ClassLength`, `A
 - Comment density (P16 states it; nothing enforces it)
 - Parameter counts, nesting depth, conditional sprawl
 
-`deal.rb` is the worked example: 763 lines, 54 methods, **49 public to 5 private**, 27% comments — and every method under 19 lines, so a metrics linter passes it clean. Only the shape shows it.
+`deal.rb` is the worked example: 763 lines and 54 methods with no `deal/` traits folder, and every method under 19 lines, so a metrics linter passes it clean. `check.rb` flags it as `unorganized-model`; the fix is traits under `app/models/deal/` (see `wiki/patterns/model-concerns.md`). Its public/private split is not the smell: Fizzy's traits are mostly public.
 
 ## Safe here, but still taste
 

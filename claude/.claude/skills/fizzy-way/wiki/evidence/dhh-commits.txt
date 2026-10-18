@@ -1,0 +1,548 @@
+f0583888e 2026-02-13 More missing dependencies for libvips
+d7a10bea1 2026-02-13 Include missing vips dependencies
+a755ecdec 2025-12-16 Must be run as sudo
+c9e9e7be5 2025-12-12 Unused
+9fceef16e 2025-12-03 Fix quoting
+3f393c142 2025-12-03 Include card description and tags
+ae0eaadcd 2025-12-03 Publish any API card as soon as it is created
+3c3f09850 2025-12-03 Compact
+0159f369f 2025-12-03 Only authenticate with bearer token if the header is present
+a8dc4fb31 2025-12-03 Excess whitespace
+79fc57a82 2025-12-03 Use built-in authenticate_or_request_with_http_token
+983a19fd8 2025-12-02 Create cards via API
+f0c0a87c7 2025-12-02 Return json URLs for API actions
+129b81984 2025-12-02 Creating a new board will return the location header
+efbd2cc3d 2025-12-02 Allow API JSON requests to sidestep csrf protection
+0ce3a8577 2025-12-02 Only allow writing when the access token has permission
+d36be764e 2025-12-02 Awaiting JZ's design
+7bc6ae4fa 2025-12-02 Polish
+96b62d6ec 2025-12-02 Only allow new token to be viewed within 10 seconds
+d2bdd1390 2025-12-02 Inline anemic partial
+88902485e 2025-12-02 Access tokens are strictly personal
+caa4cd491 2025-12-02 Smooth out the finder API
+0ba43de61 2025-12-02 This had gotten stripped
+9254d1735 2025-12-02 The magic of it is not needing to manually yield it!
+7d2c28472 2025-12-02 Clarify
+467843fe2 2025-12-02 Inline now anemic helper methods
+3329008dd 2025-12-02 Handle everything in the same method
+895b0e13b 2025-12-02 Drop the need for access tokens to have a session
+660fcff55 2025-12-02 Authenticate api requests without needing a session
+db29562c4 2025-12-01 Tie access token directly to session
+b53c0a538 2025-12-01 Correct
+c65cb77ac 2025-12-01 API index for cards
+d384971ea 2025-12-01 Test the boards API
+a81c681a8 2025-12-01 Add access token authentication via HTTP AUTHORIZATION bearer header
+ea697b714 2025-12-01 Add API to boards
+d729cf59f 2025-12-04 Beautify board watchers list (#1946)
+b3481b10a 2025-11-08 Move legacy out of sight
+737d92781 2025-12-03 We now use GH actions instead of local CI since this project is public
+28371e10c 2025-12-01 Turn off the help notice
+03e24b0ff 2025-11-22 Not needed
+ae640198a 2025-11-21 Stick with the same general retention policy we use for everything
+0a88565bd 2025-11-21 Slim down
+f66da318a 2025-11-21 No longer needed now that we are back to a single DB
+62d4998f2 2025-11-21 We stopped using load_async in the code base
+66d397fa8 2025-11-18 Eager load lazy frames inside dialogs on hover
+43d384961 2025-11-18 Add users to the populater too
+9cbb6b456 2025-11-18 Broadcasts are slowing things down
+8e6e764d5 2025-11-18 Fix for an account-aware domain model
+bfe8d74cc 2025-11-18 Fix the populate script and add tags
+80b2bbb65 2025-11-18 Kill the slow count on tags
+9ddcfa5c4 2025-11-18 Conventional order and remove redundant filtering of actions
+7d86aae67 2025-11-18 Inline anemic method
+b63d79d7a 2025-11-18 Style
+c606de7b4 2025-11-18 Instead of trying to suppress from the wrong layer of the stick, just don't touch until p
+444d43f2a 2025-11-18 Its been a few days
+6e304958b 2025-11-18 No need to protect local dev/test
+c385eff09 2025-11-11 Fix broken hotkey links
+24cb470f4 2025-11-11 Extract shared helper
+63291ca0a 2025-11-08 Alpha sort lists when they're three or longer and there isn't another reason for existing
+5231f13ce 2025-11-08 Show up top
+75b8adeb9 2025-11-08 No longer used
+5d4f4f8a7 2025-11-08 No longer used
+e28e02f27 2025-11-08 Move down to related routes for logging in and joining
+8b5416b7c 2025-11-08 No need for partials here either
+f87b9dcf9 2025-11-08 This needn't be permanent
+690d6ced4 2025-11-08 Slim down my/menu even more and lazy load the dynamic elements
+7b4741e3b 2025-11-08 Extra spaces
+5d98ca3c4 2025-11-08 Move loader up a level
+0edfc337c 2025-11-08 Inline anemic partials
+882cff885 2025-11-08 Remove overloaded filtering scope from my menu
+9c15e8d5d 2025-11-08 No need to have a loading state for something that's hidden and preloaded
+fef9c2dab 2025-11-08 turbo_frame_tag has built-in dom_id expansion
+1bab9e95a 2025-11-08 Don't want to use real credentials in dev either
+07ec3f49f 2025-11-07 Save three requests per card view
+912f7d179 2025-11-04 We already have a button to create the card
+f3c602da2 2025-11-03 Use etag for collections/edit
+56e4cdabd 2025-11-03 Use etag for taggings/new
+3bc35ac55 2025-11-03 Style
+887559d1a 2025-11-03 Be consistent about using turbo stream templates
+6570f5fc0 2025-11-03 Use etag for assignments/new
+d3cb3a3a2 2025-11-03 Use etags for my pins
+1d00a5340 2025-11-03 Provide etag for pins too
+418548b9b 2025-11-03 More efficient query for watched_by? and use etag for the status
+f5977522c 2025-11-03 Use shared callback to set card
+fcad4518d 2025-11-03 Split callbacks for easier overwriting
+6678d0e4f 2025-11-03 No longer used
+65d04f681 2025-11-03 DRY up the public controllers by introducing a shared base class
+393e5fd3d 2025-11-03 Don't want to ship with this wart
+42ebdf9ac 2025-11-03 More natural conditional
+9913853cc 2025-11-03 Remove anemic concern
+3116cea6a 2025-11-03 Stick with turbo stream templates for everything
+3ed5c53b3 2025-11-03 Use existing CollectionScoped
+8d28c25a7 2025-11-03 Unnecessary
+ed9259fa1 2025-11-03 Ivar not used
+995dcfe8e 2025-11-03 Simplify setup and pull query-prevention into model
+2bf95f5b9 2025-11-03 Just stick to default
+e081ce5e7 2025-11-03 Consistently use symbols for module scopes
+ecd0d319c 2025-11-03 Style
+ed6745e16 2025-11-03 Style
+6336a4773 2025-11-03 Style
+b2603187a 2025-11-03 Style
+113003afa 2025-11-03 Stlye
+f8b5a64e9 2025-11-03 Already included in the layout now
+1277ec534 2025-11-03 Extract jump_field_tag helper
+61d05ee07 2025-11-03 No longer used
+992b14939 2025-11-03 No longer used
+f9ff13cdc 2025-11-03 Add http caching for user events
+c25fcc087 2025-11-03 Test avatars controller
+b05e7c04e 2025-11-03 Ensure you can only delete your own avatar or else you have to be admin
+4c2f3ef0b 2025-11-03 Style
+3ec930834 2025-11-03 Always bang for exceptions
+2f1ee30a2 2025-11-03 Remove duplicated nesting
+aeb23b691 2025-11-03 Always use templates for turbo streaming to stay consistentn
+0a9e1620a 2025-11-03 No longer needed
+225a70fc5 2025-11-03 Remove here too
+38a7a1446 2025-11-03 Remove vector extension that we are no longer using
+9caf39ad2 2025-11-02 Use modern strong params syntax
+e4cdc15b6 2025-11-02 Fix tests
+39dc2b6ab 2025-11-02 Prefer explicit turbo stream templates
+cf503bfba 2025-11-02 Prefer templates for turbo streams in all but the very simplest cases
+3ccc93294 2025-11-02 Style
+3ff7a8829 2025-11-02 Style
+fd61b4426 2025-11-02 Conventional to do includes first
+828ac5d2c 2025-11-02 Conventional order of actions
+43069b1ea 2025-11-02 Extract Users::JoinsController from overloaded UsersController
+ada599f6a 2025-11-02 Use latest Rails
+bced7405d 2025-11-02 Extract events loading from overloaded UsersController
+6a62df470 2025-11-02 No longer used
+877e62dec 2025-11-02 No CR when there are only two statements
+76c87f6b6 2025-11-02 Test updating account settings
+02bd57089 2025-11-02 Use before_action to pull up account assignment
+c834cce50 2025-11-02 Simplify join code creation and validation and test controller
+f09183bc9 2025-11-02 Don't want to balloon txn, but also don't want to end up with a state with broken data
+2c9845eb6 2025-11-02 No need to hide that the top-level entropy is tied to the Account
+a1543f266 2025-11-02 Inline anemic helper method with no additional explaining purpose
+d6c88736b 2025-11-02 No need for validation when we have rely on update!/create! on db constraints
+0af74bfa1 2025-11-02 Style
+966aa51a3 2025-11-02 Get rid of unnecessary touch jobs
+b1c8dc1e6 2025-11-02 Need even more grace to ensure success
+7052d6ece 2025-11-02 Fix style
+2c4159d11 2025-11-02 Style
+fb395c8b0 2025-11-02 Keep all entropy definitions together in the concern
+b3474ec97 2025-11-02 Rename Entropy::Configuration to just Entropy
+d29e4dcdc 2025-11-02 No CR when there are only two statements in total
+72d0008df 2025-11-02 Only restrict resource actions when there's a specific story to tell
+e6459cede 2025-11-02 Use existing authorization method
+d6deb3ac5 2025-11-02 Setup signoff too
+3bba72bf1 2025-11-02 Wait a little to ensure attachments have loaded
+91263556a 2025-10-31 Ensure there is a limit of 100 events per column per day
+b3ffbc6a7 2025-10-31 Helpful to have the web-console on the error pages
+4dd4851b6 2025-10-31 Add caching for events
+c29f4e269 2025-10-31 Spacing
+aae16d207 2025-10-31 Fix path
+d49c7f45e 2025-10-31 Use a single populate script with faker data
+e258e3924 2025-10-31 Slim down
+65c3dba57 2025-10-31 Do it on a single line
+f3b00eaa3 2025-10-31 Explain the ID
+4c851e275 2025-10-31 Fix-up population script and take it to 10K cards
+13113d75c 2025-10-30 Spacing
+5a02410a8 2025-10-30 More style
+a07286dcd 2025-10-30 Style
+9f7a97eee 2025-10-30 Always use camel case for turbo frames
+16755b328 2025-10-30 Make partials live with the root templates including them
+2c290193c 2025-10-30 Spacing
+fc409d35c 2025-10-30 Stick with HTML when there's no conditional logic
+9bbac44f8 2025-10-30 Dont reference ivars in partial
+1baf55486 2025-10-30 Spacing
+d3028262a 2025-10-30 Spacing
+99247cb29 2025-10-30 Spacing
+1572147d5 2025-10-30 Spacing
+10d7fd326 2025-10-30 Rely on the passed in card object, not ivar
+333634a5c 2025-10-30 Rely on model to route
+acb7216b8 2025-10-30 Spacing
+cc0252e39 2025-10-30 No longer used
+b57317ef6 2025-10-30 Spacing
+6cf607604 2025-10-30 Rely on model to route whenever possible
+67f0876ba 2025-10-30 In order of use
+70a506c4a 2025-10-30 My menu is on every screen when the user is logged in
+3062890c2 2025-10-30 Not used for unfurling or for public consumption
+dfc50faee 2025-10-30 Extract helper instead of using anemic partial
+397b7e176 2025-10-30 No longer used
+6c15610fb 2025-10-30 Fix test
+3e118e9ad 2025-10-30 We are not using internal collection pages for unfurling or publicly readable consumption
+288bd122e 2025-10-30 Turn anemic partial into a helper method
+82df8fd90 2025-10-30 Don't even need the url when that's directly being inferred from the model
+f297e7df4 2025-10-30 We can lean on object-to-route lookup
+61e81ce8e 2025-10-30 Extract helper at a higher level
+bb4e27e58 2025-10-30 It's clearer to call out when we DON'T want the messages
+eeeff7a19 2025-10-30 Can't find any record of this to any turbo_stream_from
+c79d425e9 2025-10-30 Easier to see orders when aligned
+5b70320a6 2025-10-30 We don't need to be fancy here
+217b860bb 2025-10-30 Style
+8b508fade 2025-10-30 Do a proper redirect to dismiss the lightbox on deletion
+7877ab286 2025-10-29 Extract helper
+b0d697d6d 2025-10-29 Styling
+f41882bfd 2025-10-29 Extract explaining and implementation hiding helper
+e59f756c0 2025-10-29 Extract explaining helper method
+01beb8517 2025-10-29 Don't use _url unless we are changing hosts
+321575990 2025-10-29 Need to have the suffix for Rails to find it
+7bebea07b 2025-10-29 Simplify the error handling
+a0c6b8394 2025-10-29 Split by layering
+b8a0660d7 2025-10-29 Fix indention
+d9ebc8ace 2025-10-29 We need to upstream this fix to turbo-rails
+716e5ee50 2025-10-29 Mark for upstreaming
+2ed10b23c 2025-10-29 Aesthetics
+60a429e46 2025-10-29 Use more naturally-sounding ensures
+eebda8bfd 2025-10-24 No longer used
+caaa20555 2025-07-16 Switch to docker-dev
+a3e532306 2025-04-28 Same as production
+c5bce10d2 2025-04-28 Set ARTENANT until we can fix AR::Tenanted for clean boot
+4531e7f9d 2025-04-28 Dont need proxy
+44169ac5b 2025-04-28 Test PVE deployment
+cf3cbccf2 2025-04-22 Indention
+93516f2e4 2025-04-22 @collection is always available when card scoped
+dff55d6cb 2025-04-22 Style
+5048e9c97 2025-04-22 Duh, no before destroy commit, but this is still not right!
+7124835e6 2025-04-22 No long transactions!
+90f05b731 2025-04-22 But feels more essentially part of the User, so list first
+72d1d0bae 2025-04-22 Not related to the other two
+ad1e97767 2025-04-22 Style
+c4fbed315 2025-04-22 Try a slimmer version
+6cd8d54bf 2025-04-22 We werent using any of the other avatar methods
+134333ae4 2025-04-22 Dont do a lot of work inside a single transaction
+78d186beb 2025-04-22 Really liking the new it-style yields in many places
+dcf135c00 2025-04-22 Fix rubocop
+3d2820322 2025-04-22 Use singular staging resource and beef up testing
+5ea0ec8cb 2025-04-22 Test and fix setting workflow to nothing
+8e35a3de9 2025-04-22 Test workflowing updates card stages on change
+a7d17b38a 2025-04-22 Be confident
+827c00ce4 2025-04-22 Extract Workflowing concern
+20a296518 2025-04-22 Keep scopes together
+7a46fd094 2025-04-22 Stick with open/close as a consistent pair instead of active/close
+22abf0ba4 2025-04-22 Remove anemic concern
+268e367c6 2025-04-22 Unused
+2d5901fe1 2025-04-22 Fix pin turbo stream response rendering
+9b9acf36a 2025-04-22 Events track due_date changes in particulars, not as a direct attribute
+58c7eb41b 2025-04-22 AI slop for the honcho seed data
+4d1a1382e 2025-04-21 Fix seeds for new descriptions
+539b26c7d 2025-04-21 Small enough DSL to inline it
+581070b22 2025-04-21 Fix trailing empty line
+e1b2b623e 2025-04-21 --skip-server in ci setup
+29948d888 2025-04-21 Enumerate all the options for logging in
+dc1275119 2025-04-21 Have an empty first-run tenant too
+2bfead038 2025-04-21 Convert to conventional Rails style
+b6584ed65 2025-04-21 Seed multiple seed accounts with basic DSL
+167563d9f 2025-04-21 Stlye
+4b294ccaa 2025-04-21 No need to run Solid Cache in development
+89d1b316f 2025-04-21 Name is already schema and UI required
+dc2205ee7 2025-04-21 Cards have a not-null schema and collections destroy all cards on deletion
+48a6c0525 2025-04-20 No longer used
+d3fa62d4c 2025-04-20 Inline touch check thats only used once
+ccd98f6d9 2025-04-19 Update card.rb
+883a22594 2025-04-19 Use upstreamed assert_in_body
+78369725c 2025-04-18 Move card concern logic into those concerns
+cacee0feb 2025-04-18 Remove anemic scope
+f368b9f9c 2025-04-18 Inline anemic method
+aae6c7b1a 2025-04-18 Indention
+7c76bdd96 2025-04-18 Drop Scorable concern
+1114679c2 2025-04-18 Remove activity score columns
+3eeb121ea 2025-04-18 Cards are no longer resized on the basis of activity scores
+c65639a3c 2025-04-18 No longer used
+9aef965db 2025-04-18 No longer used
+247524da2 2025-04-18 Stlye
+406c76425 2025-04-18 Style
+c6f363c28 2025-04-18 Style
+9cea403ac 2025-04-18 Make sure that any card getting read does not empty out the notifications tray
+70275c9f0 2025-04-18 Yank Solid Queue from development
+f594bc09a 2025-04-18 Simplify
+3003105ac 2025-04-18 Flesh out the rest of the controller tests
+7b0d3d033 2025-04-18 Fix extra space
+f6cd21f7c 2025-04-18 Extract default stages into something that will be created together with a new Workflow i
+fd21838f8 2025-04-18 Add assert_in_body helper
+102640873 2025-04-18 Need this for the draft header to be visible
+f3000a02c 2025-04-18 Follow render_card_replacement pattern
+7395d4e03 2025-04-18 Removing the image can also just be done as a card replacement
+de23b4a86 2025-04-17 Not needed for a single dependency
+b8775d41f 2025-04-17 Inline perma to container partial
+0e442ac0d 2025-04-17 Use card replacement for card updates too
+461c104ac 2025-04-17 Extract helper method to keep partial at a uniform level of abstraction
+63b2abe02 2025-04-17 Remove duplicated conditional
+b508a93ab 2025-04-17 Style
+182d1c934 2025-04-17 Note that we dont want to keep reloading these frames
+ac9cbad4f 2025-04-17 I like this even better
+62088b66d 2025-04-17 Suffix qualifier is unnnecessary
+df1f62343 2025-04-17 Group partials for container
+b788ef163 2025-04-17 Match domain language
+4dbd8205c 2025-04-17 Fix trailing space
+7adbd8d63 2025-04-17 Use card rerendering instead of redirects
+d019e282a 2025-04-17 Better name
+770029c26 2025-04-17 Stick with domain language
+06da295f4 2025-04-17 Fix tests
+547e5ea24 2025-04-17 Rerender instead of redirect
+ab1835294 2025-04-17 Style
+f24287915 2025-04-17 Extract partials that can be rerendered
+7b5a1c023 2025-04-17 Fix test
+4d0dddec4 2025-04-17 No need to loop through a job when this is the sole point of the action
+87ce4a623 2025-04-17 Even clearer about where these pins are going
+1437bcb3b 2025-04-17 Clearer about where these are being sent
+8fe824106 2025-04-17 Reuse create template
+bddd624e4 2025-04-17 Match template name to container id
+fc0cf3917 2025-04-17 Pin without redirect
+07e801b74 2025-04-17 Fix pinning to tray
+0c743d27a 2025-04-17 There is no more/less flicker with morphing
+b5d6d4046 2025-04-17 Use domain language termn
+bf99da891 2025-04-17 Style
+a5de4863f 2025-04-17 Allow for multiple notifications to be read
+7c5a58bf4 2025-04-16 Note that this need to be able to dynamically appear
+5dc6e0394 2025-04-16 Style
+00cbe8101 2025-04-16 Slim it down
+cfa2f2d1f 2025-04-16 Trailing spaces
+2ced8e643 2025-04-16 Clarify a bit
+d8ec2c336 2025-04-16 More natural to fetch that which will be shown first
+5ce289642 2025-04-16 Rely on caching of notifications
+6135909b7 2025-04-16 Card readings just need to remove the notification
+2757cd8e6 2025-04-16 Dont render inline
+98401b953 2025-04-16 Explain this
+4bb908573 2025-04-16 Hide implementation detail of reading
+91194d1b6 2025-04-16 Fixed up controller test
+ac3307ee2 2025-04-16 Allow for the footer frames to be hidden on the notifications page
+158b694d3 2025-04-16 Simplify the containers
+397fc1d2b 2025-04-16 Only broadcast creations
+8ff71b265 2025-04-16 Dont turbo stream when coming from a read_all redirect
+5932bf931 2025-04-16 This is rare enough that a redirect is fine
+f9952e0fd 2025-04-16 Style
+d00a0433e 2025-04-16 Inline anemic method
+13c44ba65 2025-04-16 Actually need it for the lazy load of course
+980345d17 2025-04-16 Drop the frame, we will do it with streams
+3fc34257c 2025-04-16 No longer used
+50e4587dd 2025-04-16 Fix trailing spaces
+375afeac7 2025-04-16 Fix test
+73f272f13 2025-04-15 Use one controller for all notification readings
+2ea898324 2025-04-15 We can just set the namespace directly in the class name
+ac65f39c0 2025-04-15 Inline anemic partial
+b9f529323 2025-04-15 Style
+f30a9308d 2025-04-15 Line up scopes in order of the flow
+8e479dddb 2025-04-15 Clearer still
+5d22809e2 2025-04-15 No public use of this concept, so inline it
+680611503 2025-04-15 Distinguish between administering and just changing
+a6a96fd5c 2025-04-15 Dont repeat the same checks from doing, make it clearer where the difference is
+93178636c 2025-04-15 Flesh out all the tests
+2e8df4568 2025-04-15 Flesh out tests for users controller
+af0a42080 2025-04-15 Allow users to edit themselves
+abd2af3d8 2025-04-15 Dont need an index for a single record
+2ace519d9 2025-04-15 There is only one account, so just check join code directly
+7e5f71fed 2025-04-15 We will only have one account record per account
+cfb345bc3 2025-04-13 Nicer flow
+80c518b7e 2025-04-13 Fix string interpolation
+e8a730c23 2025-04-13 Fix constant
+34232c0e3 2025-04-13 Use record lookup
+d9a969013 2025-04-13 Always use sole
+9e0b9c08c 2025-04-13 Explained less and extracted nothing of value
+33278469e 2025-04-13 Weird double negative
+a5df54015 2025-04-13 Remove anemic and indirect method that explained nothing
+e2a931b65 2025-04-13 Can use record lookup for workflows
+366fe0611 2025-04-13 Access control has already been done through the card
+e12ef119d 2025-04-13 Style
+dbf61f4fc 2025-04-13 Use _path in all cases where we are not potentially changing the domain
+7b6074879 2025-04-13 Clearer
+4ef46ccd1 2025-04-13 Spacing
+cf93da688 2025-04-12 Get rid of card_title
+a106b1b6a 2025-04-12 Join the two users controllers but split out role setting
+c463f342b 2025-04-12 Ensure user is returned
+a579e6705 2025-04-12 We are not using the parameter
+6bbf68a4f 2025-04-12 The tenanted db is the account scope
+760cbb6c9 2025-04-12 Drop boosts
+1b732c41c 2025-04-12 Use render svg
+120e8da1d 2025-04-12 Unused
+4723b7b50 2025-04-12 Style
+d3c5c86b2 2025-04-12 Style
+a9c6f8bce 2025-04-12 No reuse likely
+b36b2f04a 2025-04-12 Too clever to have the redirect_to directly on the factory method return
+19c537af6 2025-04-12 Inline anemic method
+1a70be06c 2025-04-12 Fix trailing CR
+706178f3c 2025-04-12 Better naming
+d4a31fec6 2025-04-12 Dont overload the main transaction
+2357c7506 2025-04-12 Reads better with a verb first
+e8a839d5f 2025-04-12 We have a callback dependency to do this actually
+0031ce34e 2025-04-12 Correct order
+e4efe446e 2025-04-12 Simlpe callback is actually enough
+f2c2b0492 2025-04-12 Have to solve this in an overhaul of events
+f5b30456a 2025-04-12 Comments arent part of event summaries any more
+e75d2bcaa 2025-04-12 Scopes last
+d8f9511e0 2025-04-12 Unused
+1a9a65fff 2025-04-12 Unused
+2f8a9bed0 2025-04-12 There is only ever one account per database
+9359cac33 2025-04-12 Style
+b2b9c9974 2025-04-12 Style
+81a89dbda 2025-04-12 Comments should always have messages
+b8c3ac814 2025-04-12 Cache busting should happen as a comment in the partial, not as an actual key component
+cef8899bd 2025-04-12 Comments are not currently used as notifiables
+9f1c3ae04 2025-04-12 Note my discontent
+1c4e0d3cc 2025-04-12 Not using the destroy callback
+63c05220c 2025-04-12 Clearer naming
+ecffdc2af 2025-04-12 Spacing
+735a12abf 2025-04-12 Better name
+9f7bbbef5 2025-04-12 Split draft commenting back out to a dedicated concern
+27d90abbd 2025-04-12 Reduce the direct knowledge of comments inside the card
+b698eefa0 2025-04-12 Messageables already have access to the card
+24b02c42f 2025-04-12 Comments are dependents of messages, so need to destroy the latter to get the former
+60a036020 2025-04-12 Remove more activity scoring related to comments
+fb733b9a6 2025-04-12 No more tracking commenting as an activity for sorting
+81f431d94 2025-04-12 Comment-specific behavior needs to live in the comment
+bb64adfd1 2025-04-12 Most important methods first
+4d2ba5b43 2025-04-12 Use the explicit method for now
+80bc1dd16 2025-04-12 Reactions dont have any callbacks so can just be deleted
+09dd073cf 2025-04-11 Record lookup works here
+51341c36d 2025-04-11 New partial isnt cached
+c8fe83e8f 2025-04-11 Indention
+6effc1568 2025-04-11 No need for a separate body partial
+6f1c80229 2025-04-11 Content being required via UI and db constraint is enough
+9ecb85013 2025-04-11 Spacing
+442fe6087 2025-04-11 Use form object so we dont have to manually set the text_field name
+aefae634c 2025-04-11 Anemic params method
+8d36f13fa 2025-04-11 No longer needing that extra local
+06a636bd8 2025-04-11 Did need to separate them out for the broadcast
+5fa800739 2025-04-11 Loaded directly in the partial
+f0aa48b75 2025-04-11 Indention
+fadf16763 2025-04-11 Avoid needing to pass an extra variable to the reactions partial
+227d5a875 2025-04-11 It is both reacting and reactions
+73f198986 2025-04-11 Fix indention
+3b711161d 2025-04-11 No need for a manual dom_id
+114526089 2025-04-11 No idea why this was here
+5aa2b7da8 2025-04-11 No need to cache individual reactions
+7861b7c08 2025-04-11 Just open one turbo stream per card
+263b3336d 2025-04-11 Add missing CR
+0954cfe00 2025-04-11 Add CR
+79700162f 2025-04-11 Use correct stream name
+eec76d0d4 2025-04-11 Use modern params#expect
+f9bb779b6 2025-04-11 Use local vars so ivar dependency is only from before actions
+3ecf15063 2025-04-11 Use proper access control
+dc4e50fba 2025-04-11 Move messages partial under cards
+5084bbf3b 2025-04-11 Use modern params#expect syntax
+8a4a087a0 2025-04-11 Fine to let destroying something destroyed be a no-op
+256d53600 2025-04-11 Always use _path unless we are changing domains
+16c158313 2025-04-11 Usually the order comes last
+5ecf0ce3f 2025-04-11 Stick with one term
+a8aa2c4f8 2025-04-11 Clean up the controller
+f2811803d 2025-04-11 Needed to come first
+adabfba63 2025-04-11 In order of appearance
+cbdb9aa11 2025-04-11 Schema movement -- is this because the dumper doesnt sort deterministically? cc @flavorjo
+f4ce57e30 2025-04-11 Move comments under cards
+64b529ce9 2025-04-11 Fix indention
+c0f3ff46d 2025-04-07 Reorder for better grouping
+23892296d 2025-04-07 Move readings under bubbles and out of double nesting
+bcd6c6dd6 2025-04-07 Move bubble stagings out from double nesting
+59ae5b36c 2025-04-07 Correct alpha ordering
+28c106fd8 2025-04-07 Fix indention
+3b32b4026 2025-04-07 Move bubble recovery out from double nesting
+481be7216 2025-04-07 Move bubbles publish out from the double nesting
+ce0c6146b 2025-04-07 Move bubble pops out from double nesting
+c60b86cba 2025-04-07 Move controller to delete bubble image out from double nesting under bucket
+86a360f6a 2025-04-07 Few more lazy loading avatars!
+7e9b851f6 2025-04-07 Another lazy loading point
+8e0394a09 2025-04-07 Lets just preload all avatars for now
+84c0ec8a3 2025-04-07 No need for an array when there is only one dependency
+8def7c500 2025-04-06 Excess CR
+565ee0f54 2025-04-06 Dont have to spell this out when there are no other formats
+26c123c41 2025-04-06 Template dependency should be closest to direct use
+c06802856 2025-04-06 Move boosts under bubbles
+5c9f630fe 2025-04-06 Rearrange
+5275394c2 2025-04-06 Move resolves to the bottom for a cleaner reading
+d925c64c5 2025-04-06 Remove anemic partial
+4fd1472fa 2025-04-06 Move bubble watch out from the needless bucket nesting
+eb0614c44 2025-04-06 Use a more ergonomic API for watching
+352ba6e05 2025-04-06 No longer need the turbo frame designation as this isnt wrapped in a frame
+95cd60b91 2025-04-06 Style
+78c82584c 2025-04-06 Reads nicer now that we are using long form operations
+21211cedc 2025-04-06 These really are anemic too
+cc0c88d99 2025-04-06 Remove anemic finder
+084c4d894 2025-04-06 Spacing and indention
+7fe87bfce 2025-04-06 This neednt be a turbo frame
+7900c475e 2025-04-06 This is going to churn too much
+eb047aec4 2025-04-06 Neater
+b8bcfdee4 2025-04-06 This is not just param extraction, we sanitize too
+5e78a1dab 2025-04-06 Make it clearer that this takes a title string not a tag object
+a58fcd312 2025-04-06 Nicer API
+cdd78b41e 2025-04-06 Tag exclusively by title
+ee22e69e6 2025-04-05 Move taggings to bubbles
+540316e63 2025-04-05 Move taggings under bubbles
+18419c52b 2025-04-05 Latest schema
+0866eb694 2025-04-05 Excess CR
+537cb7680 2025-04-05 Add Bundler Audit for Local CI
+5316a6b82 2025-04-05 It is Local CI now
+aaa4dd296 2025-04-05 Use modern CI setup
+25b89ce8a 2025-04-05 Trailing CR
+338ff496d 2025-04-05 No system tests yet
+513498541 2025-04-05 Simplify the assignments flow
+6990f1eb0 2025-04-05 Alpha sort regardless of capitalization
+77f412f87 2025-04-05 Cache is going to churn too frequently to matter
+64c00aea3 2025-04-05 Extract helper for bubble_assignee_checkbox
+6166c9175 2025-04-05 Not needed
+233538c72 2025-04-05 Going to remove Hotwire Spark for a second
+e825f1d33 2025-04-05 No need for the partial indirection
+d0953d6f8 2025-04-05 Pull assignments out of the double nesting
+3b5f8c2e6 2025-04-05 Note the security oddity of finding straight off root
+851be126a 2025-04-05 Emphasize where this pin is showing up
+ec36e52b2 2025-04-05 No longer used
+b4c0fec7a 2025-04-05 Move Assignments under Bubble
+e69c1bd0a 2025-04-05 Break pins out of the double nesting
+f725a69de 2025-04-05 Let BubbleScoped find its own bucket
+8708ff04c 2025-04-05 Fix indention
+866a80e13 2025-04-05 Fix up the tests
+e4c6fe4b5 2025-04-05 Shape up pinning API and broadcast in the controller
+bfb7ed121 2025-04-05 Move pins to my space
+7494dad91 2025-04-05 Drop the toggles scope for taggings as well
+384de2413 2025-04-05 Get rid of odd toggles concept
+f063116df 2025-04-05 Group related associations together
+aefbac9c1 2025-04-05 Get rid of single-use and slight awkward model scope
+61dfa5ecc 2025-04-05 Spacing
+821f4c43d 2025-04-05 Excess CR
+1463fa68f 2025-04-05 Sessions only depend on user and have no callback, so use the faster delete_all
+8ff017fc5 2025-04-05 Only one invocation of this, not carrying the worth of its indirection
+d237885bd 2025-04-05 Extract User::Assignee role
+17bdfb5df 2025-04-05 Already included in the Avatar concern
+92ce80cc3 2025-04-05 Extract User::Accessor concern
+4c344d2c3 2025-04-05 Use Rails 8.1 defaults
+de6f782ca 2025-03-29 Extract icon_tag helper to reduce repetition
+3faea3c39 2025-03-29 Proper spacing
+57ad7d169 2025-03-29 If there are no tags, show no tag column for the filter
+ad3b7ef31 2025-03-29 Protect against an account without workflows
+6a49e892f 2025-03-19 Use latest Ruby
+84a07343a 2024-12-20 Use stale_when_importmap_changes
+b1f549891 2024-10-19 Encapsulate tagging as a taggable domain method
+c00dcd8c6 2024-10-19 Already comes as a hash
+255435a38 2024-10-19 No need for a non-standard factory method for something this simple
+139fa7afd 2024-10-19 No need for this to be in a transaction
+0c5778495 2024-10-19 Resolve bubble to bucket_bubble for ease of redirecting
+e75e585f0 2024-10-19 Routes are actually ensuring the id is always there
+aef3c8ca3 2024-10-19 No need to specify the extension now
+e3f7930dc 2024-10-19 Unlikely we are going to need this
+b8e93c4f8 2024-10-19 Extract render svg as a real renderer
+15b0d6e81 2024-10-19 Simplify join code svg rendering
+b53a2b888 2024-10-19 Fix url reference
+b7efd04a4 2024-10-19 Use _path consistently in the controllers when not changing host
+2995c1571 2024-10-19 Use the new params#expect syntax where applicable
+cdcf2500c 2024-10-19 Another spot where we need to move a Current.user check to a stimulus controller to cache
+53afd0d93 2024-10-19 Note that Current.user cannot be referenced within partials that must be cached
+716e14998 2024-10-19 Note that we need to keep all partials cacheable, so no dynamic path munging
+1d404830f 2024-10-19 Must touch to bust bubble caches
+7bd882f33 2024-10-19 Extract explaining variable and move work outside the transaction constraint
+0bffcb8b8 2024-10-19 Actually need to do all work outside of transaction loop
+942eb9fd6 2024-10-19 Extract explaining method
+32d1792cb 2024-10-19 Fetch bubbles index with multiget cache
+cd14fda39 2024-10-19 Cache bubble partial on itself
+5d06e5449 2024-10-19 Etag the bubbles#show
+23d81c07c 2024-10-19 Use Rails 8.0 rc1
+e2c904858 2024-10-18 Only load from app, not all plugins etc
+8504e911a 2024-10-17 No longer used

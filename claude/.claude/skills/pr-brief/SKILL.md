@@ -13,7 +13,7 @@ Then they ask follow-ups. So **read the source material into this session and an
 
 | Out of scope | Who owns it |
 |---|---|
-| Whether the code is any good | `/code-review`, `/review-diff`, `/dhh-review` |
+| Whether the code is any good | `/code-review`, `/review-diff`, `/fizzy-way review` |
 | Deployment risk, who may ship it | `/pr-risk`, `/pr-triage` |
 | Whether the agent run finished its own plan | `/spear-reconciler` |
 | CI red, conflicts, base drift | the PR's own checks UI, `/ll:babysit` |

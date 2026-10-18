@@ -63,7 +63,7 @@ sediment — delete it) · **no external ids**. Elsewhere (`README`, `docs/`): t
 
 ## 4 — Taste, and fix what's wrong
 
-Run `/dhh-review --fix`. It applies what has one defensible resolution and reports the rest.
+Run `/fizzy-way review --fix`. It applies what has one defensible resolution and reports the rest.
 
 **Then fix the defects — this pass owns them.** The method the comment had to explain, the nil case
 the test asserted around, the name that lies. Fix with a test where one is owed, in its own commit

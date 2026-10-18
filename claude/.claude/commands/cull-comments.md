@@ -140,5 +140,5 @@ bin/ci green · committed 8a3f1c2 · pushed to worktree-fac-364
 Nothing to cut is a clean result, not a failure — say `19 added comments, all earn their place`
 and stop.
 
-For a full taste pass — naming, shape, abstraction, organization — use `/dhh-review`. This command
+For a full taste pass — naming, shape, abstraction, organization — use `/fizzy-way review`. This command
 only owns comments.
