@@ -8,3 +8,4 @@
 - 2026-10-18 — Review mode: review.md, scripts/check.rb (11 checks, calibrated: fixture fires all, Fizzy baseline 4), scripts/test/check_test.rb, overlays/factory.md ported from dhh-review (public/private heuristic removed).
 - 2026-10-18 — Ran on factory/rails: fixed class-method, heredoc, wrapped-route and model-size gaps; added overlays/<repo>.yml accepted lists (factory: protocol + SPA endpoints). Factory: 124 findings.
 - 2026-10-18 — Ledger: scripts/ledger.rb + overlays/factory.ledger.yml (116 open). Stable finding ids (check + path + subject, repeats numbered); dropped the member-block route finding (redundant, unstable). Ranking: weight × (1 + 90-day churn) × size.
+- 2026-10-18 — Added components/cards-boards-columns (core domain; reuse recipe for slimming a big core model). Verified SHAs, subjects, fixtures.

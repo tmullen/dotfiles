@@ -21,6 +21,7 @@ Each page's `use_when` frontmatter lists more trigger phrases.
 
 | Page | Use when |
 |---|---|
+| [[components/cards-boards-columns]] | the core domain model: slimming a big central model, lifecycle states, containers, ordering, drag and drop |
 | [[components/accounts-tenancy]] | multi-tenancy, URL slug tenancy, `Current.account`, account_id everywhere, UUIDv7 |
 | [[components/authentication]] | login, magic links, passkeys, sessions, API bearer tokens, Identity vs User |
 | [[components/signup]] | signup, onboarding, invites and join codes |
@@ -74,7 +75,7 @@ Each page's `use_when` frontmatter lists more trigger phrases.
 
 The completeness critic flagged these. For now, grep the code or evidence for them.
 
-- **components:** cards-boards-columns (the core domain model), public-boards, prompts (editor pickers), identity-transfers (QR login, email change), account-lifecycle (cancel/incinerate), mailers, json-api, native-and-pwa clients, user-settings, admin
+- **components:** public-boards, prompts (editor pickers), identity-transfers (QR login, email change), account-lifecycle (cancel/incinerate), mailers, json-api, native-and-pwa clients, user-settings, admin
 - **patterns:** system-user, rails-ext (framework patching via `on_load` + `prepend`), saas-engine-seam, framework-shaped libs in `lib/` (ActionPack::Passkey), pagination, recurring-jobs and Continuable, outbound-http/SSRF, rate-limiting, cache-safe personalization, stimulus conventions, house-style (STYLE.md), ci
 
 ## Evidence (grep, don't read)
