@@ -6,7 +6,7 @@ sources:
   - evidence/pr-review-themes.md, evidence/pr-comments.jsonl (3,716 human PR comments)
   - STYLE.md, .rubocop.yml
   - sources.md (Code I like series, Minding the small stuff)
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # What the 37signals team would do

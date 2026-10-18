@@ -11,7 +11,7 @@ sources:
   - test/models/card/watchable_test.rb, test/controllers/cards/watches_controller_test.rb
   - test/controllers/boards/involvements_controller_test.rb, test/models/card/commentable_test.rb
   - commits 59144ad17, 694783e5f, 0820badcc, e68b344cc, 5e0994460, eb0614c44, 418548b9b, 6073f7919, f1d76a7cb, ad58de9e7, edcc9e327
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Watching (subscriptions and involvement)

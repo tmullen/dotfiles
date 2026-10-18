@@ -11,7 +11,7 @@ sources:
   - saas/lib/fizzy/saas/signup.rb, saas/lib/fizzy/saas/engine.rb
   - test/models/signup_test.rb, test/controllers/join_codes_controller_test.rb, test/models/account/join_code_test.rb, test/models/identity/joinable_test.rb
   - commits a9cf7c2c7, 4e09352c0, 2311efd03, a8f328c92, edf6b5346, 6858b9661, c834cce50, 6e9381abb, c8a5d0177, 4602cd3cd, 43069b1ea, e3d91f4ba
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Signup and join codes

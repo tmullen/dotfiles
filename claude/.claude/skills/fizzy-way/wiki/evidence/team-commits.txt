@@ -1,3 +1,4 @@
+0a52a2a7c 2026-10-17 Stanko K.R.: Render Mermaid diagrams with Pele
 3739578d2 2026-10-15 Jeremy Daer: Unregister the Trusted Types listener even when draining fails
 6fa278fba 2026-10-15 Jeremy Daer: Collect Trusted Types violations from the test's own window, and keep them off the network
 9407b1007 2026-10-15 Jeremy Daer: Drain Trusted Types violations before Capybara resets the session

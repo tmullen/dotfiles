@@ -38,3 +38,17 @@ up findings anchored at `file:line` with the rewrite and the Fizzy precedent.
 - **Check the code over the wiki.** If the code at the snapshot disagrees with a
   page, trust the code and add an entry to `wiki/log.md`.
 - **Pages are distilled; `wiki/evidence/` is raw.** Read pages. Grep evidence or `git show <sha>` in the Fizzy checkout only when a page falls short. Never read evidence wholesale.
+
+## Keeping it current
+
+Every page pins the Fizzy commit it was verified at (`snapshot:`) and lists what it was
+distilled from (`sources:`). `scripts/refresh.rb` uses both:
+
+1. `ruby scripts/refresh.rb` fetches Fizzy and reports stale pages (their sources
+   changed), changed app code no page cites, and new DHH and team commits.
+2. Pull the Fizzy checkout (`git -C ~/Work/Vendor/fizzy pull --ff-only`). Update each
+   stale page from the diff, then run `--mark <page>...`.
+3. `--bump-clean` advances every page whose sources didn't change. `--evidence` appends
+   new commits to `wiki/evidence/`. Read new DHH commits against `voice/dhh-refactors.md`.
+4. `--verify` checks every cited SHA, quoted commit subject and path. Run it after any edit.
+

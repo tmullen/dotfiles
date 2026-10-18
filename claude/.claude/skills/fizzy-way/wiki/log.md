@@ -9,3 +9,4 @@
 - 2026-10-18 — Ran on factory/rails: fixed class-method, heredoc, wrapped-route and model-size gaps; added overlays/<repo>.yml accepted lists (factory: protocol + SPA endpoints). Factory: 124 findings.
 - 2026-10-18 — Ledger: scripts/ledger.rb + overlays/factory.ledger.yml (116 open). Stable finding ids (check + path + subject, repeats numbered); dropped the member-block route finding (redundant, unstable). Ranking: weight × (1 + 90-day churn) × size.
 - 2026-10-18 — Added components/cards-boards-columns (core domain; reuse recipe for slimming a big core model). Verified SHAs, subjects, fixtures.
+- 2026-10-18 — refresh.rb: per-page staleness from snapshot + sources, --mark/--bump-clean/--evidence/--verify. First cycle: 27d0d2e6b → 55bb38335 (Pele replaces Mermaid; decisions #11 gained the example).

@@ -10,7 +10,7 @@ sources:
   - app/javascript/initializers/current.js
   - test/test_helpers/card_test_helper.rb, test/controllers/my/menus_controller_test.rb, test/models/notification_test.rb, test/models/card/pinnable_test.rb, test/system/card_refresh_test.rb
   - commits cf503bfba, 3116cea6a, 887559d1a, 7adbd8d63, 3e1a2bcc7, 5a740a425, 418548b9b, 6570f5fc0, 690d6ced4, 66d397fa8, b8c3ac814, 9312f6b35, 2527f0736, d37480d06, 966aa51a3, 4d0dddec4, b2e2a5d95
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Turbo and caching — stream templates, morphing, broadcasts, etags

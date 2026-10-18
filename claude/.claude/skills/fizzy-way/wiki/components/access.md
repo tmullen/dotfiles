@@ -10,7 +10,7 @@ sources:
   - app/models/notifier.rb (accessible_recipients), app/controllers/public/base_controller.rb
   - test/models/access_test.rb, test/models/board/accessible_test.rb, test/models/user/role_test.rb
   - commits c09a02fa9, 0820badcc, e68b344cc, 5a9f9692f, c621cc6cc, 53ae8a33e, 9f6a4f1cc, 77f111002, edf6b5346, 44888eae0, 9e0b9c08c, 4b61c3ae3; PRs #1499, #1841, #3088
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Access, roles and authorization

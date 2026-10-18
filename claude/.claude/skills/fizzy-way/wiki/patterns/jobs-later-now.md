@@ -10,7 +10,7 @@ sources:
   - app/models/card/{readable,accessible,commentable,stallable,pinnable,entropic}.rb, app/models/export.rb
   - test/test_helper.rb, test/models/notification/pushable_test.rb, test/models/access_test.rb, test/jobs/storage/materialize_job_test.rb
   - commits 2c2a1c4b4, 142a342e5, e51f0bfee, dbfb141b6, 3621df8f0, a9444caf1, 966aa51a3, 4d0dddec4, 329e9ef7c, 6aebc0cea, aa27937ac
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Background jobs — `_later` methods and one-line jobs

@@ -1,6 +1,6 @@
 ---
 title: The Fizzy Way — index
-snapshot: 27d0d2e6b (basecamp/fizzy main, 2026-10-17)
+snapshot: 55bb38335 (oldest page; basecamp/fizzy main, 2026-10-18)
 ---
 
 # The Fizzy Way

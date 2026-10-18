@@ -10,7 +10,7 @@ sources:
   - app/controllers/notifications_controller.rb, app/controllers/notifications/*.rb
   - config/initializers/push_notifications.rb, config/recurring.yml
   - test/models/notifier/*, test/models/notification/*
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Notifications

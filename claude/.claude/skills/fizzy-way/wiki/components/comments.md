@@ -12,7 +12,7 @@ sources:
   - test/models/comment_test.rb, test/models/card/commentable_test.rb
   - test/models/card/eventable/system_commenter_test.rb, test/controllers/cards/comments_controller_test.rb
   - commits 2b98db9e6, 4ff55df2e, c6c9e0d5f, 83360ec6f, 81f431d94, 255435a38, 9aa15e9fb
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Comments

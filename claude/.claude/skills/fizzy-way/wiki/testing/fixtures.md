@@ -7,7 +7,7 @@ sources:
   - lib/rails_ext/active_record_uuid_type.rb
   - test/models/board/accessible_test.rb, test/models/notifier/event_notifier_test.rb
   - commits e4011ef21, 63f8a9af7, a81986816, 59dd8ca54, a48c88cb5, 12928f530
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Fixtures over factories

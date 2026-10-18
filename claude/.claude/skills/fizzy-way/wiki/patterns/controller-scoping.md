@@ -10,7 +10,7 @@ sources:
   - app/views/cards/_card.json.jbuilder, app/views/cards/show.json.jbuilder
   - test/controllers/cards_controller_test.rb, test/controllers/cards/closures_controller_test.rb, test/controllers/api_test.rb, test/controllers/api/flat_json_params_test.rb
   - commits 366fe0611, 7adbd8d63, ac9cbad4f, 3e1a2bcc7, f5977522c, 65d04f681, fcad4518d, 43069b1ea, f5305b2fe, 983a19fd8, f0c0a87c7, efbd2cc3d, 723c8180b
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Controller scoping — load through `Current.user`, respond in two formats

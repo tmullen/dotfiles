@@ -8,7 +8,7 @@ sources:
   - test/controllers/**/*_test.rb (107 files), test/integration/*.rb
   - config/ci.rb
   - commits 006aa4d6b, e0965d477, b6edb93c4, 7adbd8d63, fd21838f8, 883a22594, 5dec991d7, 338ff496d, 248fc5d3e, b23a5d0b7
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Controller and system tests

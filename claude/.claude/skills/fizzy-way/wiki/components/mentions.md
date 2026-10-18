@@ -12,7 +12,7 @@ sources:
   - config/routes.rb (namespace :prompts, resolve "Mention")
   - test/models/concerns/mentions_test.rb, test/models/user/mentionable_test.rb, test/models/notifier/mention_notifier_test.rb
   - commits aa3acfeaa, d5f035933, 5c9874474, 56a85c261, cdadc0373, e44608036, 53eba9bd0, edcc9e327, 60b3c9c77, b68693623, 29d07e732
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Mentions

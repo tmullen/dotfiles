@@ -9,7 +9,7 @@ sources:
   - app/models/notification/bundle.rb, app/models/account/seeder.rb, app/models/signup/account_name_generator.rb
   - test/test_helper.rb, test/test_helpers/session_test_helper.rb
   - commits 2ff9dbab5, 208ace721, 6bbf68a4f, 8e13ce5b7, d41d50d52, 319e4223e, 5a7f08067, 9446bc18d, 660fcff55, 75f273c6f, 9697f7b43, e51f0bfee
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Current attributes

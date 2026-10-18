@@ -9,7 +9,7 @@ sources:
   - app/models/user/day_timeline.rb, app/models/event/description.rb
   - app/models/card/stallable.rb, app/models/card/activity_spike/detector.rb, app/models/card/entropic.rb
   - commits ec7fc7505, b74698771, 905ccb9b4, 4ff55df2e, ab54cafd8, 9d717239e, c926d7ad6, 2ac2d4e0d
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Events as the spine

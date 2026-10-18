@@ -12,7 +12,7 @@ sources:
   - app/views/events/_event.html.erb, app/views/events/event/**
   - test/models/event_test.rb, test/models/event/description_test.rb, test/models/card/eventable_test.rb
   - commits b74698771, 18cc24e1d, 905ccb9b4, 4ff55df2e, c926d7ad6, 0ab3aaca7, 0df667f4f, 676c2a42f
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Events and the activity feed

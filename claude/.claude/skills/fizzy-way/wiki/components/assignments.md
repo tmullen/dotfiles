@@ -11,7 +11,7 @@ sources:
   - test/models/assignment_test.rb, test/models/card/assignable_test.rb
   - test/controllers/cards/assignments_controller_test.rb, test/controllers/cards/self_assignments_controller_test.rb
   - commits 044117f9c, 3e1b2c74e, a9f845ed4, d237885bd, b4c0fec7a, 513498541, eb0614c44, 15daa2bf0, b0f9960b8, 2527f0736, 6570f5fc0, 7bfcfb57c
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Assignments

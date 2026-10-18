@@ -9,7 +9,7 @@ sources:
   - app/controllers/cards/*, app/controllers/columns/**, app/controllers/boards/**
   - config/routes.rb (resources :boards, :cards, :columns)
   - test/models/card/*, test/models/column/*, test/models/board/*
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Cards, boards and columns

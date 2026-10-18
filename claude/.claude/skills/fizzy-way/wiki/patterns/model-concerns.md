@@ -7,7 +7,7 @@ sources:
   - app/models/concerns/*.rb
   - app/controllers/concerns/*.rb
   - commits 22abf0ba4, 9913853cc, fb395c8b0, 78369725c, 7a46fd094
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Concerns as traits of a rich model

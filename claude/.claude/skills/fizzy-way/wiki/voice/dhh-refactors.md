@@ -2,7 +2,7 @@
 title: What DHH refactors
 use_when: [what would DHH change, is this too abstract, should I extract this, naming review, taste pass, 37signals-style review, is this anemic, refactor toward simplicity]
 sources: 548 DHH commits on Fizzy (index: evidence/dhh-commits.txt); sources.md
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # What DHH refactors

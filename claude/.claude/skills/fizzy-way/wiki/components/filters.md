@@ -10,7 +10,7 @@ sources:
   - app/controllers/concerns/filter_scoped.rb, app/controllers/cards_controller.rb, app/controllers/boards_controller.rb
   - test/models/filter_test.rb, test/models/filter/search_test.rb, test/controllers/filters_controller_test.rb, test/fixtures/filters.yml
   - commits 3d9d16947, d455b7290, 1cb9ccdf1, 378705a30, 2713913f0, 134333ae4, 5048e9c97, cac0ca165
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Filters and saved filters

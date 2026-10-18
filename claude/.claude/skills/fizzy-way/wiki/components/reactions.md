@@ -12,7 +12,7 @@ sources:
   - test/models/reaction_test.rb, test/controllers/cards/reactions_controller_test.rb
   - test/controllers/cards/comments/reactions_controller_test.rb, test/integration/card_preview_boost_count_test.rb
   - commits 1570c16f6, ffab4cad6, cb61b3671, 6f1c80229, 80bc1dd16, 0cb5b9ecd, 5aa2b7da8, 760cbb6c9
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Reactions

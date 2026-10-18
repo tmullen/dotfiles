@@ -10,7 +10,7 @@ sources:
   - lib/rails_ext/active_record_uuid_type.rb, config/initializers/uuid_primary_keys.rb
   - test/middleware/account_slug_extractor_test.rb, test/test_helper.rb, test/test_helpers/session_test_helper.rb
   - commits 4d3c26504, 5a7f08067, e3d86bb21, 142a342e5, e51f0bfee, fe6df7085, 9697f7b43, 9f6a4f1cc, 2061ab4ab, e105ca6fb, 6c04b56f4, 63f8a9af7
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Accounts and multi-tenancy

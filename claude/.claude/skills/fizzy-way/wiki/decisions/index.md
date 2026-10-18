@@ -8,7 +8,7 @@ sources:
   - evidence/pr-review-themes.md, evidence/team-commit-themes.md, evidence/pr-comments.jsonl
   - commits 4d3c26504, 52ce8b50c, e4011ef21, 90538afb3, 3aa4a1a56, c834cce50, 761d0b4a7, ad6f3a9ff, 2a79cb413, b57130338
   - sources.md (Vanilla Rails is plenty, Globals/callbacks, A vanilla Rails stack is plenty, RECORDABLES)
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Decisions and rejected alternatives
@@ -183,7 +183,10 @@ build and a lot of Vanilla Rails"* (Jason Fried, [REWORK](https://37signals.com/
 DHH declined an outside PR that grew the toolchain: *"don't like the idea of proliferating
 on the tool chain here"* (PR #1814).
 **Where:** `config/importmap.rb` pins Turbo, Stimulus and Lexxy, plus `pin_all_from
-app/javascript/controllers`. There's no `package.json`. CSS is plain files.
+app/javascript/controllers`. There's no `package.json`. CSS is plain files. A heavy
+library gets vendored as a single ES module and pinned with `preload: false`, so it
+loads only on pages that need it: 0a52a2a7c "Render Mermaid diagrams with Pele" swapped
+3,582 lines of vendored Mermaid for a 145-line module.
 
 ### 12. Search in the database, not a search service
 **Rejected:** Elasticsearch or another external engine. Also a `SearchIndex` AR model.

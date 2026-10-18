@@ -12,7 +12,7 @@ sources:
   - saas/app/models/account/storage_limited.rb, saas/app/controllers/concerns/card/storage_limited.rb
   - test/models/storage/*, test/jobs/storage/*, test/integration/active_storage_authorization_test.rb
   - commits 761d0b4a7 (PR #2026), bd6c1cf34 (PR #2096), 006e61ea5 (PR #2346), 196d685f8
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Storage accounting and Active Storage

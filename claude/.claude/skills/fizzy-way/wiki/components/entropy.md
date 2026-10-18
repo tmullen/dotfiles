@@ -12,7 +12,7 @@ sources:
   - config/recurring.yml
   - test/models/entropy_test.rb, test/models/card/entropic_test.rb, test/models/card/stallable_test.rb, test/models/card/activity_spike/detector_test.rb
   - commits 6f93d4b72, db86d1788, b3474ec97, 2c9845eb6, 966aa51a3, aa27937ac, 0e718f369, 6aebc0cea, 1bbb6d0c0, c007176ed, dbbee2c66
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Entropy — auto-postpone, stalled cards, activity spikes

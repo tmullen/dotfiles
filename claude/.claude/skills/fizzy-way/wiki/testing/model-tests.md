@@ -7,7 +7,7 @@ sources:
   - test/test_helpers/{change,card_activity,dns,vcr}_test_helper.rb, test/test_helpers/search_test_helper.rb
   - app/models/current.rb, app/jobs/concerns/account_tenanted.rb
   - commits e51f0bfee, 9cdc34f0a, 56f47361f, 47074bb99, b4f3ee5d8, 126ccb5e3
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Model tests — traits through real models

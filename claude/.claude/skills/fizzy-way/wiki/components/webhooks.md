@@ -10,7 +10,7 @@ sources:
   - config/recurring.yml, Gemfile (surfguard)
   - test/models/webhook_test.rb, test/models/webhook/*.rb, test/test_helpers/dns_test_helper.rb
   - commits a515ea3b1, 9d717239e, 5c6cad057, dd3063b01, d7db97339, 7af93765a, 29c792630, a253c31de, d3185b5e9, f22d19eb6
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Outbound webhooks

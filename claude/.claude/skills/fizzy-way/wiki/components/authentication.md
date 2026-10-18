@@ -11,7 +11,7 @@ sources:
   - lib/action_pack/passkey.rb, lib/action_pack/passkey/*.rb, lib/action_pack/web_authn/
   - test/controllers/sessions/*, test/controllers/api_test.rb, test/test_helpers/session_test_helper.rb
   - commits 3399e4513, edf837fed, fd7a9330e, 660fcff55, 895b0e13b, 88902485e, 96b62d6ec, 0ce3a8577, 79fc57a82, b6edb93c4, 7ab06d1db, 2311efd03, c9ebb79db, 017bcc9ce; PRs #1766, #2086, #2623
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Authentication

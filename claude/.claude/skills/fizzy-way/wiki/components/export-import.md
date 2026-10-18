@@ -11,7 +11,7 @@ sources:
   - config/recurring.yml, script/import-account, AGENTS.md
   - test/models/zip_file_test.rb, test/models/account/import_test.rb, test/models/account/export_test.rb, test/models/account/data_transfer/**, test/jobs/account/data_import_job_test.rb
   - commits e16cc21b0, f7e2b4e0b, 00c5f7fea, 122a228ed, 992f15066, 5bbd7f633, f50d6d093, 71b99c1e1, 8fb57ace0, b742963f7, ad1b10368, 744fedbfe, c9824cf7e, dec47a32f, 0ba7b9f24, a7c9040b9 (PRs #1768, #2356, #2707, #3068)
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Export and import

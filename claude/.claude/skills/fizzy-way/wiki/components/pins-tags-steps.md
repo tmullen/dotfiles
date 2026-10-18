@@ -12,7 +12,7 @@ sources:
   - test/models/card/pinnable_test.rb, test/models/card/taggable_test.rb, test/models/tag_test.rb
   - test/controllers/cards/{pins,taggings,steps}_controller_test.rb, test/controllers/my/pins_controller_test.rb, test/jobs/delete_unused_tags_job_test.rb
   - commits bfb7ed121, e4c6fe4b5, 4d0dddec4, c89db89f2, 0053e7145, 253881fd7, 3068c2a74, f403ed070, 2f9a0bbe7, 4a30663df, f02215c5b, aff0a38b3
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Pins, tags and steps — small card traits

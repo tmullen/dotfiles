@@ -11,7 +11,7 @@ sources:
   - app/jobs/search_reindex_job.rb, app/jobs/card/reindex_comments_job.rb, lib/tasks/search.rake
   - test/test_helpers/search_test_helper.rb, test/test_helpers/search_index_test_helper.rb
   - commits 03f3bd012 (PR #3136), e8abc66eb, 3aa4a1a56, 70dd754cf, b57130338, 468fe5f16, 0d138df95, cb5ef4811, 9e3dbb085
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # Search

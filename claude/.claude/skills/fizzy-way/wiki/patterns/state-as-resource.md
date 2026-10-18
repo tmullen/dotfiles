@@ -11,7 +11,7 @@ sources:
   - app/models/closure.rb, app/models/pin.rb, app/models/watch.rb, app/models/board/publishable.rb
   - test/controllers/cards/closures_controller_test.rb, test/models/card/golden_test.rb
   - commits e50144d97, 384de2413, e4c6fe4b5, 3d2820322, 73f272f13, d533f05c7, 72d0008df, d836a1c6c
-snapshot: 27d0d2e6b
+snapshot: 55bb38335
 ---
 
 # State as a singular resource
