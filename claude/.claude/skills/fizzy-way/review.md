@@ -25,6 +25,9 @@ Then sort every candidate finding into one of three buckets:
 
 If an overlay exists for the repo in `overlays/` (e.g. `overlays/factory.md`), read
 it. It is that sorting already done. Confirm it against the repo, since it ages.
+`overlays/<repo>.yml` lists findings the team has accepted on purpose. The checker
+loads it automatically, using the git repo's name, and skips those findings. When the
+user accepts a divergence, add it there with a `why`. Don't silence it any other way.
 
 Never report anything RuboCop can fix. Run `bin/rubocop` if it exists.
 
@@ -135,3 +138,23 @@ because shape, ordering and naming can't be judged from a diff hunk.
 - **`--fix`:** apply the findings after reporting them, then run the repo's test or
   validation command. Anything with more than one defensible resolution stays a
   finding, with its options listed.
+
+## Tracking over time: the ledger
+
+For a repo you're steering over time, not reviewing once:
+
+```bash
+ruby ~/.claude/skills/fizzy-way/scripts/ledger.rb <repo-root>            # record this run: new, fixed, reopened
+ruby ~/.claude/skills/fizzy-way/scripts/ledger.rb <repo-root> --next 10  # rank open findings, pick the next theme
+```
+
+- `overlays/<repo>.ledger.yml` holds one entry per finding id (check, path and
+  subject, so ids survive line shifts) with `open` or `fixed`, `first_seen`, and
+  `fixed_on`. Commit it: its git history is the trend line.
+- Ranking is weight × (1 + commits in the last 90 days) × size. Files people keep
+  touching are where a fix pays off. Route and schema findings take their churn from
+  the controller or model they're about.
+- Work one theme at a time, in small PRs that each cite the wiki page, so reviewers
+  learn the pattern while approving it.
+- Never edit the ledger to silence a finding. If the team decides a divergence is
+  deliberate, add it to `overlays/<repo>.yml` with a `why`.

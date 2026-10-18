@@ -5,17 +5,29 @@
 #   check.rb [ROOT]                  whole app
 #   check.rb [ROOT] --paths a.rb b/  only findings in these paths
 #   check.rb --shape FILE...         neutral per-file readout, no judgments
+#   ledger.rb [ROOT]                 track findings over time; see ledger.rb
 
 require "prism"
 require "pathname"
+require "yaml"
 
 CRUD = %w[ index show new create edit update destroy ].freeze
 LAYER_SUFFIXES = %w[ Service Manager Interactor Handler Operation Command Repository UseCase ].freeze
 LAYER_DIRS = %w[ services interactors operations commands repositories use_cases ].freeze
 
-Finding = Struct.new(:check, :path, :line, :message)
+# subject names what was found (an action, a column, a method) so a finding keeps its id when lines shift.
+Finding = Struct.new(:check, :path, :line, :message, :subject) do
+  def id
+    [ check.name, path, subject ].compact.join(" ")
+  end
+end
 
 Check = Struct.new(:name, :page, :question, :runner)
+
+class String
+  def squish = strip.gsub(/\s+/, " ")
+  def presence = (self unless empty?)
+end
 
 class Repo
   attr_reader :root
@@ -40,9 +52,39 @@ class Repo
     (@sources ||= {})[path.to_s] ||= File.read(path)
   end
 
+  # Each route as [statement, line], with wrapped arguments joined onto their first line.
   def routes
     path = root.join("config/routes.rb")
-    path.exist? ? File.readlines(path) : []
+    return [] unless path.exist?
+
+    File.readlines(path).each_with_index.each_with_object([]) do |(line, index), joined|
+      if joined.any? && joined.last.first.rstrip.end_with?(",")
+        joined.last[0] = joined.last.first.rstrip + " " + line.strip
+      else
+        joined << [ line, index + 1 ]
+      end
+    end
+  end
+
+  def toplevel
+    @toplevel ||= Pathname(`git -C #{root} rev-parse --show-toplevel 2>/dev/null`.strip.presence || root)
+  end
+
+  # Per-repo files under overlays/, keyed by the git repo's name: factory.yml, factory.ledger.yml.
+  def overlay(suffix)
+    Pathname(__dir__).join("../overlays/#{toplevel.basename}#{suffix}")
+  end
+
+  # Divergences the repo made on purpose.
+  def accepted
+    @accepted ||= overlay(".yml").exist? ? YAML.load_file(overlay(".yml")).fetch("accepted", []) : []
+  end
+
+  def accepted?(finding)
+    accepted.any? do |entry|
+      entry["check"] == finding.check.name && finding.path == entry["path"] &&
+        (entry["match"].nil? || finding.message.include?(entry["match"]))
+    end
   end
 
   def schema
@@ -108,7 +150,7 @@ CHECKS = [
         classes_in(repo.parse(path)).filter_map do |klass|
           name = klass.constant_path.slice
           if LAYER_SUFFIXES.any? { name.end_with?(it) } && !path.to_s.include?("/app/jobs/")
-            Finding.new(nil, repo.relative(path), klass.location.start_line, "#{name} names a role, not a domain concept")
+            Finding.new(nil, repo.relative(path), klass.location.start_line, "#{name} names a role, not a domain concept", name)
           end
         end
       end
@@ -124,8 +166,8 @@ CHECKS = [
 
         findings = []
         each_def(repo.parse(path).statements) do |definition, visibility|
-          if visibility == :public && !CRUD.include?(definition.name.to_s)
-            findings << Finding.new(nil, repo.relative(path), definition.location.start_line, "public action ##{definition.name}")
+          if visibility == :public && definition.receiver.nil? && !CRUD.include?(definition.name.to_s)
+            findings << Finding.new(nil, repo.relative(path), definition.location.start_line, "public action ##{definition.name}", "##{definition.name}")
           end
         end
         findings
@@ -135,12 +177,10 @@ CHECKS = [
   Check.new("custom-route", "patterns/state-as-resource",
     "Is this a verb on a controller that wants to be a noun resource?",
     ->(repo) do
-      repo.routes.each_with_index.filter_map do |line, index|
+      repo.routes.filter_map do |line, number|
         verb = line[/^\s*(post|patch|put|delete)\s+[:"']/, 1]
         if verb && !line.match?(/to:\s*["'][\w\/]+#(#{CRUD.join("|")})["']/)
-          Finding.new(nil, "config/routes.rb", index + 1, "#{verb} route outside resources: #{line.strip}")
-        elsif line.match?(/^\s*member\s+do/)
-          Finding.new(nil, "config/routes.rb", index + 1, "member block")
+          Finding.new(nil, "config/routes.rb", number, "#{verb} route outside resources: #{line.strip}", line.squish)
         end
       end
     end),
@@ -148,25 +188,24 @@ CHECKS = [
   Check.new("route-restriction", "voice/dhh-refactors",
     "Is there a specific story behind restricting these actions? If not, declare the full resource.",
     ->(repo) do
-      repo.routes.each_with_index.filter_map do |line, index|
+      repo.routes.filter_map do |line, number|
         if line.include?("except:")
-          Finding.new(nil, "config/routes.rb", index + 1, "except: list — #{line.strip}")
+          Finding.new(nil, "config/routes.rb", number, "except: list — #{line.strip}", line.squish)
         elsif (actions = line[/only:\s*%i\[([^\]]*)\]/, 1]) && actions.split.size >= 4
-          Finding.new(nil, "config/routes.rb", index + 1, "only: #{actions.split.size} actions — #{line.strip}")
+          Finding.new(nil, "config/routes.rb", number, "only: #{actions.split.size} actions — #{line.strip}", line.squish)
         end
       end
     end),
 
   Check.new("unorganized-model", "patterns/model-concerns",
-    "Can this model's behavior be grouped into traits under app/models/<model>/?",
+    "Can more of this model's behavior move into traits under app/models/<model>/? (Fizzy's largest, Card, is 112 lines over 23 traits.)",
     ->(repo) do
       repo.files("app/models/**/*.rb").filter_map do |path|
         next unless repo.source(path).match?(/< (ApplicationRecord|ActiveRecord::Base)\b/)
 
         code = repo.source(path).lines.count { it.strip.then { |l| !l.empty? && !l.start_with?("#") } }
-        traits = path.sub_ext("")
-        if code > 150 && !traits.directory?
-          Finding.new(nil, repo.relative(path), 1, "#{code} lines of code and no #{repo.relative(traits)}/ traits")
+        if code > 150
+          Finding.new(nil, repo.relative(path), 1, "#{code} lines of code, #{includes_in(repo.parse(path))} traits included")
         end
       end
     end),
@@ -190,7 +229,7 @@ CHECKS = [
           # A long or argument-carrying chain is an explaining name (eventable_prefix); a short bare chain may not be.
           expression = statements.first
           chain = expression.slice
-          next if chain.include?("\n") || chain.match?(/[({\[]/) || chain.count(".") > 2 || expression.receiver.nil?
+          next if chain.include?("\n") || chain.start_with?("<<") || chain.match?(/[({\[]/) || chain.count(".") > 2 || expression.receiver.nil?
           next if calls_in(expression).any?(&:arguments)
 
           # A name also defined elsewhere is a hook another class overrides (Notifier#card), not an alias.
@@ -199,7 +238,7 @@ CHECKS = [
 
           callers = source.scan(/(?<![\w:.@])#{Regexp.escape(name)}(?![\w?!=])/).size - 1
           if callers == 1
-            findings << Finding.new(nil, repo.relative(path), definition.location.start_line, "#{name} → #{chain}, one caller")
+            findings << Finding.new(nil, repo.relative(path), definition.location.start_line, "#{name} → #{chain}, one caller", name)
           end
         end
 
@@ -253,7 +292,7 @@ CHECKS = [
         findings = []
         each_def(repo.parse(path).statements) do |definition, _|
           if definition.name == :perform && body_statements(definition).size > 2
-            findings << Finding.new(nil, repo.relative(path), definition.location.start_line, "perform has #{body_statements(definition).size} statements")
+            findings << Finding.new(nil, repo.relative(path), definition.location.start_line, "perform has #{body_statements(definition).size} statements", "perform")
           end
         end
         findings
@@ -268,7 +307,7 @@ CHECKS = [
         each_def(repo.parse(path).statements) do |definition, _|
           body_statements(definition).each do |statement|
             if statement.is_a?(Prism::CallNode) && %i[ save update create ].include?(statement.name) && statement.receiver
-              findings << Finding.new(nil, repo.relative(path), statement.location.start_line, "return value of #{statement.name} ignored")
+              findings << Finding.new(nil, repo.relative(path), statement.location.start_line, "return value of #{statement.name} ignored", "##{definition.name} #{statement.name}")
             end
           end
         end
@@ -288,7 +327,7 @@ CHECKS = [
 
           if columns.include?("#{state}_by_id") || columns.include?(state)
             line = repo.schema.lines.index { it.include?(%(create_table "#{table}")) }.to_i + 1
-            Finding.new(nil, "db/schema.rb", line, "#{table}.#{state} carries its own state + timestamp#{" + actor" if columns.include?("#{state}_by_id")}")
+            Finding.new(nil, "db/schema.rb", line, "#{table}.#{state} carries its own state + timestamp#{" + actor" if columns.include?("#{state}_by_id")}", "#{table}.#{state}")
           end
         end
       end
@@ -320,12 +359,24 @@ def shape(paths)
   end
 end
 
-def report(repo, filters)
+def findings_in(repo, filters = [])
   findings = CHECKS.flat_map do |check|
     check.runner.(repo).compact.each { it.check = check }
   end
 
+  findings.reject! { repo.accepted?(it) }
   findings.select! { |finding| filters.any? { finding.path.start_with?(it) } } if filters.any?
+
+  # The same statement can appear under several resources (post :accept); number the repeats in file order.
+  findings.group_by(&:id).each_value do |same|
+    same.drop(1).each.with_index(2) { |finding, nth| finding.subject = "#{finding.subject} (#{nth})" }
+  end
+
+  findings
+end
+
+def report(repo, filters)
+  findings = findings_in(repo, filters)
 
   if findings.empty?
     puts "No candidates."

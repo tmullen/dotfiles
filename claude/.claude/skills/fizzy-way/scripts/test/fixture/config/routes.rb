@@ -5,4 +5,8 @@ Rails.application.routes.draw do
     end
   end
   post :archive, to: "archives#archive"
+
+  resources :estimates do
+    post :close
+  end
 end
