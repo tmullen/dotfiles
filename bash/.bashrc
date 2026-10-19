@@ -1,16 +1,18 @@
 # If not running interactively, don't do anything (leave this at the top of this file)
 [[ $- != *i* ]] && return
 
-# mise shims — must stay ahead of omarchy's `mise activate` below, which keeps
-# shims in PATH behind the tool paths it manages. activate only re-resolves on
-# prompt display, so anything inheriting this env (Claude Code, cron, editors)
-# would otherwise be pinned to whatever mise resolved at launch cwd; shims
-# resolve per-directory at exec time.
-eval "$(mise activate bash --shims)"
-
 # All the default Omarchy aliases and functions
 # (don't mess with these directly, just overwrite them here!)
-source ~/.local/share/omarchy/default/bash/rc
+# /etc/omarchy.conf is written by omarchy-dev-link. When absent, force the
+# package default instead of preserving a stale inherited dev-link value before
+# we decide which rc file to source.
+if [[ -f /etc/omarchy.conf ]]; then
+  source /etc/omarchy.conf
+  export OMARCHY_PATH="${OMARCHY_PATH:-/usr/share/omarchy}"
+else
+  export OMARCHY_PATH=/usr/share/omarchy
+fi
+source "$OMARCHY_PATH/default/bash/rc"
 
 # Add your own exports, aliases, and functions here.
 
@@ -33,19 +35,15 @@ alias gup='git smart-pull'
 # bun global bin (gbrain, etc.)
 export PATH="$HOME/.cache/.bun/bin:$PATH"
 
-# Claude — work account (Loan Labs Teams) via isolated config dir.
-# Personal account stays on omarchy's default `c`/`cx` (~/.claude).
-# mise shims lead: claude inherits this PATH and never fires activate's prompt
-# hook, so activate's install-dirs are frozen at launch cwd and would shadow the
-# shims for any other directory — launching from ~ would hand a factory session
-# the wrong ruby/node. Ahead of them, shims resolve per-directory at exec time.
-alias cw='PATH="$HOME/.local/share/mise/shims:$PATH" CLAUDE_CONFIG_DIR=~/.claude-work claude'
+alias cw='CLAUDE_CONFIG_DIR=~/.claude-work claude'
 alias cwx='printf "\033[2J\033[3J\033[H" && cw --permission-mode bypassPermissions'
-
-# Claude — ted@loanlabs.ai's personal org (Max), same login as work.
-alias cl='PATH="$HOME/.local/share/mise/shims:$PATH" CLAUDE_CONFIG_DIR=~/.claude-personal claude'
+alias cl='CLAUDE_CONFIG_DIR=~/.claude-personal claude'
 alias clx='printf "\033[2J\033[3J\033[H" && cl --permission-mode bypassPermissions'
 
 # aws-vault: pass backend (GPG-encrypted store) + curses pinentry for Hyprland
 export AWS_VAULT_BACKEND=pass
 export GPG_TTY=$(tty)
+
+# Shim lead: `mise activate` resolves at prompt display, so anything inheriting
+# this env without one (Claude sessions, editors, cron) is frozen at launch cwd.
+PATH="$HOME/.local/share/mise/shims:$PATH"
