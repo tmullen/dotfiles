@@ -44,6 +44,10 @@ export PATH="$HOME/.cache/.bun/bin:$PATH"
 alias cw='PATH="$HOME/.claude-work/bin:$HOME/.local/share/mise/shims:$PATH" CLAUDE_CONFIG_DIR=~/.claude-work claude'
 alias cwx='printf "\033[2J\033[3J\033[H" && PATH="$HOME/.claude-work/bin:$HOME/.local/share/mise/shims:$PATH" CLAUDE_CONFIG_DIR=~/.claude-work claude --permission-mode bypassPermissions'
 
+# Claude — ted@loanlabs.ai's personal org (Max), same login as work.
+alias cl='PATH="$HOME/.local/share/mise/shims:$PATH" CLAUDE_CONFIG_DIR=~/.claude-personal claude'
+alias clx='printf "\033[2J\033[3J\033[H" && cl --permission-mode bypassPermissions'
+
 # aws-vault: pass backend (GPG-encrypted store) + curses pinentry for Hyprland
 export AWS_VAULT_BACKEND=pass
 export GPG_TTY=$(tty)
