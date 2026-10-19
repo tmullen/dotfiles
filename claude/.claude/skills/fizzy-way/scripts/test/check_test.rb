@@ -1,15 +1,17 @@
 require "minitest/autorun"
 require_relative "../check"
-require_relative "../fizzy"
+require "fileutils"
 
 # The checker is only trustworthy if it flags bad code and leaves Fizzy (nearly) alone.
 class CheckTest < Minitest::Test
   FIXTURE = File.expand_path("fixture", __dir__)
-  FIZZY = ENV["FIZZY"] || Fizzy.cache # calibration skips rather than cloning
+  # Calibration runs against a fresh clone, deleted after the run.
+  FIZZY = File.join(Dir.mktmpdir("fizzy-way"), "fizzy")
+  CLONED = system("git", "clone", "--quiet", "https://github.com/basecamp/fizzy.git", FIZZY, err: File::NULL)
+  Minitest.after_run { FileUtils.rm_rf(File.dirname(FIZZY)) }
 
   # Fizzy's accepted residue — each a judgment call, documented in review.md.
   FIZZY_BASELINE = [
-    "custom-action app/controllers/pwa_controller.rb",
     "route-restriction config/routes.rb",
     "anemic-method app/models/concerns/mentions.rb",
     "anemic-partial app/views/cards/triage/_columns.html.erb"
@@ -20,7 +22,7 @@ class CheckTest < Minitest::Test
   end
 
   def test_fizzy_stays_at_its_baseline
-    skip "no Fizzy checkout" unless File.directory?(FIZZY)
+    skip "couldn't clone Fizzy" unless CLONED
 
     assert_equal FIZZY_BASELINE.sort, findings(FIZZY).sort
   end

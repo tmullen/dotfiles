@@ -2,16 +2,31 @@
 # Flags the shapes 37signals corrects, each pointing at the wiki page that shows the alternative.
 # Candidates, not verdicts: every check is calibrated so Fizzy itself comes out (nearly) clean.
 #
+# Stateless: every run reads the code as it is. Judge each candidate against the project's own directives.
+#
 #   check.rb [ROOT]                  whole app
 #   check.rb [ROOT] --paths a.rb b/  only findings in these paths
+#   check.rb [ROOT] --since REF      what changed against a git ref: new and fixed findings
+#   check.rb [ROOT] --next [N]       rank findings by weight × churn × size; the theme to take on next
 #   check.rb --shape FILE...         neutral per-file readout, no judgments
-#   ledger.rb [ROOT]                 track findings over time; see ledger.rb
 
 require "prism"
 require "pathname"
-require "yaml"
+require "tmpdir"
 
 CRUD = %w[ index show new create edit update destroy ].freeze
+
+# URLs an external spec fixes, in any app: they can't be reshaped into resources.
+PROTOCOL_ACTIONS = {
+  /well_known/ => :any,
+  /saml/       => %w[ acs metadata ],
+  /pwa/        => %w[ service_worker manifest ],
+  /auth|oauth/ => %w[ token authorize revoke introspect ]
+}.freeze
+
+def protocol?(controller, action)
+  PROTOCOL_ACTIONS.any? { |pattern, actions| controller.match?(pattern) && (actions == :any || actions.include?(action)) }
+end
 LAYER_SUFFIXES = %w[ Service Manager Interactor Handler Operation Command Repository UseCase ].freeze
 LAYER_DIRS = %w[ services interactors operations commands repositories use_cases ].freeze
 
@@ -68,25 +83,6 @@ class Repo
 
   def toplevel
     @toplevel ||= Pathname(`git -C #{root} rev-parse --show-toplevel 2>/dev/null`.strip.presence || root)
-  end
-
-  # What we know about one project lives outside the skill, keyed by the git repo's name:
-  # $FIZZY_WAY_HOME/<repo>/ (default ~/.config/fizzy-way/<repo>/) holds accepted.yml, ledger.yml, rules.md.
-  def project(file)
-    home = ENV.fetch("FIZZY_WAY_HOME") { File.join(ENV.fetch("XDG_CONFIG_HOME", File.expand_path("~/.config")), "fizzy-way") }
-    Pathname(home).join(toplevel.basename.to_s, file)
-  end
-
-  # Divergences the project made on purpose.
-  def accepted
-    @accepted ||= project("accepted.yml").exist? ? YAML.load_file(project("accepted.yml")).fetch("accepted", []) : []
-  end
-
-  def accepted?(finding)
-    accepted.any? do |entry|
-      entry["check"] == finding.check.name && finding.path == entry["path"] &&
-        (entry["match"].nil? || finding.message.include?(entry["match"]))
-    end
   end
 
   def schema
@@ -168,7 +164,8 @@ CHECKS = [
 
         findings = []
         each_def(repo.parse(path).statements) do |definition, visibility|
-          if visibility == :public && definition.receiver.nil? && !CRUD.include?(definition.name.to_s)
+          action = definition.name.to_s
+          if visibility == :public && definition.receiver.nil? && !CRUD.include?(action) && !protocol?(path.to_s, action)
             findings << Finding.new(nil, repo.relative(path), definition.location.start_line, "public action ##{definition.name}", "##{definition.name}")
           end
         end
@@ -181,6 +178,9 @@ CHECKS = [
     ->(repo) do
       repo.routes.filter_map do |line, number|
         verb = line[/^\s*(post|patch|put|delete)\s+[:"']/, 1]
+        controller, action = line[/to:\s*["']([\w\/]+#\w+)["']/, 1]&.split("#")
+        next if controller && protocol?(controller, action)
+
         if verb && !line.match?(/to:\s*["'][\w\/]+#(#{CRUD.join("|")})["']/)
           Finding.new(nil, "config/routes.rb", number, "#{verb} route outside resources: #{line.strip}", line.squish)
         end
@@ -366,7 +366,6 @@ def findings_in(repo, filters = [])
     check.runner.(repo).compact.each { it.check = check }
   end
 
-  findings.reject! { repo.accepted?(it) }
   findings.select! { |finding| filters.any? { finding.path.start_with?(it) } } if filters.any?
 
   # The same statement can appear under several resources (post :accept); number the repeats in file order.
@@ -392,6 +391,73 @@ def report(repo, filters)
   end
 end
 
+# The same code at another git ref, checked out in a throwaway worktree.
+def findings_at(repo, ref, filters)
+  Dir.mktmpdir do |dir|
+    worktree = File.join(dir, "tree")
+    system("git", "-C", repo.toplevel.to_s, "worktree", "add", "--quiet", "--detach", worktree, ref, exception: true)
+    findings_in(Repo.new(File.join(worktree, repo.root.relative_path_from(repo.toplevel))), filters)
+  ensure
+    system("git", "-C", repo.toplevel.to_s, "worktree", "remove", "--force", worktree, err: File::NULL)
+  end
+end
+
+def since(repo, ref, filters)
+  now = findings_in(repo, filters).to_h { [ it.id, it ] }
+  before = findings_at(repo, ref, filters).to_h { [ it.id, it ] }
+
+  added, fixed = now.keys - before.keys, before.keys - now.keys
+  puts "Against #{ref}: #{added.size} new, #{fixed.size} fixed, #{now.size} now."
+  added.each { puts "   new    #{now[it].path}:#{now[it].line}  #{now[it].message}  (wiki/#{now[it].check.page}.md)" }
+  fixed.each { puts "   fixed  #{before[it].path}  #{before[it].message}" }
+end
+
+# How much fixing one finding moves the code toward Fizzy's shape.
+WEIGHTS = Hash.new(1).merge("service-layer" => 3, "unorganized-model" => 3, "state-columns" => 3, "custom-action" => 2, "silent-persistence" => 2).freeze
+
+# Commits per file over the last 90 days: the files people keep touching are where a fix pays off.
+def churn(repo)
+  log = IO.popen([ "git", "-C", repo.toplevel.to_s, "log", "--since=90.days.ago", "--name-only", "--format=" ], err: File::NULL, &:read)
+  prefix = repo.root.relative_path_from(repo.toplevel).to_s.then { it == "." ? "" : "#{it}/" }
+  log.lines.map(&:strip).grep(/\A#{Regexp.escape(prefix)}/).map { it.delete_prefix(prefix) }.tally
+end
+
+# schema.rb and routes.rb churn with every migration and route, so their findings borrow
+# the churn of the model or controller they're about.
+def churned_paths(finding)
+  case finding.check.name
+  when "state-columns"
+    model = finding.subject.split(".").first.sub(/ies\z/, "y").delete_suffix("s")
+    [ "app/models/#{model}.rb", "app/models/#{model.sub("_", "/")}.rb" ]
+  when "custom-route"
+    controller = finding.message[/to:\s*["']([\w\/]+)#/, 1]
+    controller ? [ "app/controllers/#{controller}_controller.rb" ] : []
+  else
+    [ finding.path ]
+  end
+end
+
+def rank(repo, filters, limit)
+  churn = churn(repo)
+  ranked = findings_in(repo, filters).map do |finding|
+    size = finding.check.name == "unorganized-model" ? finding.message.to_i / 150.0 : 1
+    [ finding, (WEIGHTS[finding.check.name] * (1 + churned_paths(finding).sum { churn.fetch(it, 0) }) * size).round(1) ]
+  end.sort_by { -it.last }
+
+  themes = ranked.group_by { it.first.check }.transform_values { |group| group.sum(&:last).round(1) }.sort_by { -it.last }
+  puts "Themes by total score (weight × (1 + 90-day commits) × size):"
+  themes.each { |check, total| puts "   #{total.to_s.rjust(7)}  #{check.name} (#{ranked.count { it.first.check == check }})" }
+
+  if (check, = themes.first)
+    puts
+    puts "Next theme: #{check.name} — wiki/#{check.page}.md"
+    puts "   #{check.question}"
+    ranked.select { it.first.check == check }.first(limit).each do |finding, score|
+      puts "   #{score.to_s.rjust(6)}  #{finding.path}:#{finding.line}  #{finding.message}"
+    end
+  end
+end
+
 if __FILE__ == $0
   args = ARGV.dup
 
@@ -399,7 +465,15 @@ if __FILE__ == $0
     shape(args)
   else
     paths = args.index("--paths") ? args.slice!(args.index("--paths")..).drop(1) : []
+    ref = args.index("--since") ? args.slice!(args.index("--since"), 2).last : nil
+    limit = args.delete("--next") ? (args.find { it.match?(/\A\d+\z/) }&.then { args.delete(it).to_i } || 10) : nil
+
     repo = Repo.new(args.first || ".")
-    report(repo, paths.map { repo.relative(File.expand_path(it)) })
+    filters = paths.map { repo.relative(File.expand_path(it)) }
+
+    if ref then since(repo, ref, filters)
+    elsif limit then rank(repo, filters, limit)
+    else report(repo, filters)
+    end
   end
 end

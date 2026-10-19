@@ -2,26 +2,37 @@
 # Keeps the wiki current with Fizzy. Every page pins the commit it was verified at
 # (snapshot:) and lists what it was distilled from (sources:), so staleness is per page.
 #
-#   refresh.rb                  fetch upstream; report stale pages, uncovered code, and new commits
+#   refresh.rb                  report stale pages, uncovered code, and new commits
+#   refresh.rb --diff PAGE...   what changed upstream in the files those pages cite
 #   refresh.rb --bump-clean     advance pages whose sources didn't change to upstream
 #   refresh.rb --mark PAGE...   advance pages you've just updated (paths relative to wiki/)
 #   refresh.rb --verify         every cited SHA, quoted commit subject, and path checks out
 #   refresh.rb --evidence       append new DHH and team commits to wiki/evidence/
 #
-# The checkout comes from scripts/fizzy.rb: $FIZZY, or a clone the skill keeps in its cache.
+# Refreshing is the only time the skill needs Fizzy's code: each run clones it into a
+# temporary directory and deletes it on exit. Nothing is assumed about the machine.
 
 require "pathname"
-require_relative "fizzy"
+require "tmpdir"
+require "fileutils"
 require "set"
 
-FIZZY = Fizzy.path
+REPOSITORY = "https://github.com/basecamp/fizzy"
 WIKI = Pathname(__dir__).join("../wiki").expand_path
 UPSTREAM = "origin/main"
 PATH = %r{\A(?:app|config|db|lib|test|saas|bin|script|docs)/\S+|\A(?:STYLE|AGENTS|README)\.md\z|\AGemfile\z|\A\.rubocop\.yml\z}
 TEAM = /Jorge Manrubia|Mike Dalessio|Kevin McConnell|Stanko|Rosa Gutierrez|Jeremy Daer|Jeffrey Hardy|Donal McBreen|Jose Farias/
 
+# A fresh clone on first use, deleted when the run ends.
+def fizzy
+  @fizzy ||= Pathname(Dir.mktmpdir("fizzy-way")).join("fizzy").tap do |path|
+    at_exit { FileUtils.rm_rf(path.dirname) }
+    system("git", "clone", "--quiet", "#{REPOSITORY}.git", path.to_s, exception: true)
+  end
+end
+
 def git(*args)
-  IO.popen([ "git", "-C", FIZZY.to_s, *args ], err: File::NULL, &:read).to_s
+  IO.popen([ "git", "-C", fizzy.to_s, *args ], err: File::NULL, &:read).to_s
 end
 
 class Page
@@ -83,8 +94,7 @@ def changes(from, to)
 end
 
 def upstream_sha
-  git("fetch", "-q", "origin")
-  git("rev-parse", "--short=9", UPSTREAM).strip
+  @upstream_sha ||= git("rev-parse", "--short=9", UPSTREAM).strip
 end
 
 def report
@@ -107,7 +117,7 @@ def report
   else
     puts "Stale pages (#{stale.size}) — update, then --mark them:"
     stale.each do |page, touched|
-      puts "  #{page.name}"
+      puts "  #{page.name}  #{REPOSITORY}/compare/#{page.snapshot}...#{target}"
       touched.each { |file, status| puts "    #{status == "D" ? "DELETED (citation broken)" : status} #{file}" }
     end
   end
@@ -129,6 +139,16 @@ def report
   puts "New commits since #{since}: #{commits.size} (DHH #{dhh.size}, core team #{team.size})."
   dhh.first(15).each { puts "  DHH #{it.split(" ", 2).first} #{it[/: (.*)/, 1]}" }
   puts "  Read these against voice/dhh-refactors.md; run --evidence to append them to wiki/evidence/." if dhh.any? || team.any?
+end
+
+def diff(names)
+  target = upstream_sha
+  names.each do |name|
+    page = Page.new(WIKI.join(name))
+    files = changes(page.snapshot, target).keys.select { page.cites?(it) }
+    puts "### #{page.name}: #{page.snapshot}..#{target}"
+    puts files.any? ? git("diff", page.snapshot, target, "--", *files) : "(no cited file changed)"
+  end
 end
 
 def bump_clean
@@ -206,6 +226,7 @@ end
 
 if __FILE__ == $0
   case ARGV.first
+  when "--diff"       then diff(ARGV.drop(1))
   when "--bump-clean" then bump_clean
   when "--mark"       then mark(ARGV.drop(1))
   when "--verify"     then verify
