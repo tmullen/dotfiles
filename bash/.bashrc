@@ -35,14 +35,12 @@ export PATH="$HOME/.cache/.bun/bin:$PATH"
 
 # Claude — work account (Loan Labs Teams) via isolated config dir.
 # Personal account stays on omarchy's default `c`/`cx` (~/.claude).
-# `bin/` shims xdg-open so OAuth re-logins open the "Work" Chromium profile
-# (signed into claude.ai as the work account), keeping it off the personal one.
 # mise shims lead: claude inherits this PATH and never fires activate's prompt
 # hook, so activate's install-dirs are frozen at launch cwd and would shadow the
 # shims for any other directory — launching from ~ would hand a factory session
 # the wrong ruby/node. Ahead of them, shims resolve per-directory at exec time.
-alias cw='PATH="$HOME/.claude-work/bin:$HOME/.local/share/mise/shims:$PATH" CLAUDE_CONFIG_DIR=~/.claude-work claude'
-alias cwx='printf "\033[2J\033[3J\033[H" && PATH="$HOME/.claude-work/bin:$HOME/.local/share/mise/shims:$PATH" CLAUDE_CONFIG_DIR=~/.claude-work claude --permission-mode bypassPermissions'
+alias cw='PATH="$HOME/.local/share/mise/shims:$PATH" CLAUDE_CONFIG_DIR=~/.claude-work claude'
+alias cwx='printf "\033[2J\033[3J\033[H" && cw --permission-mode bypassPermissions'
 
 # Claude — ted@loanlabs.ai's personal org (Max), same login as work.
 alias cl='PATH="$HOME/.local/share/mise/shims:$PATH" CLAUDE_CONFIG_DIR=~/.claude-personal claude'
