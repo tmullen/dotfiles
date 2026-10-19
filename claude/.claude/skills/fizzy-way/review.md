@@ -23,19 +23,26 @@ Then sort every candidate finding into one of three buckets:
 - **They decided otherwise.** Say nothing; a softened note still counts as noise.
 - **No rule and no linter covers it.** Spend your attention here.
 
-If an overlay exists for the repo in `overlays/` (e.g. `overlays/factory.md`), read
-it. It is that sorting already done. Confirm it against the repo, since it ages.
-`overlays/<repo>.yml` lists findings the team has accepted on purpose. The checker
-loads it automatically, using the git repo's name, and skips those findings. When the
-user accepts a divergence, add it there with a `why`. Don't silence it any other way.
+What's known about a project lives outside the skill, in its project folder:
+`$FIZZY_WAY_HOME/<repo>/`, or `~/.config/fizzy-way/<repo>/` by default, keyed by the
+git repo's name. It can hold:
+
+- `rules.md`: that sorting, already done. Read it, and confirm it against the repo,
+  since it ages.
+- `accepted.yml`: findings the team has accepted on purpose. The checker loads it and
+  skips those findings. When the user accepts a divergence, add it there with a `why`.
+  Don't silence a finding any other way.
+- `ledger.yml`: written by `ledger.rb` (see below).
+
+The skill itself carries no project's data.
 
 Never report anything RuboCop can fix. Run `bin/rubocop` if it exists.
 
 ## 2. Run the checker
 
 ```bash
-ruby ~/.claude/skills/fizzy-way/scripts/check.rb <repo-root> [--paths <changed files>]
-ruby ~/.claude/skills/fizzy-way/scripts/check.rb --shape <file>...   # neutral readout
+ruby scripts/check.rb <repo-root> [--paths <changed files>]
+ruby scripts/check.rb --shape <file>...   # neutral readout
 ```
 
 Each check prints the question to ask and the wiki page that shows the alternative.
@@ -144,11 +151,11 @@ because shape, ordering and naming can't be judged from a diff hunk.
 For a repo you're steering over time, not reviewing once:
 
 ```bash
-ruby ~/.claude/skills/fizzy-way/scripts/ledger.rb <repo-root>            # record this run: new, fixed, reopened
-ruby ~/.claude/skills/fizzy-way/scripts/ledger.rb <repo-root> --next 10  # rank open findings, pick the next theme
+ruby scripts/ledger.rb <repo-root>            # record this run: new, fixed, reopened
+ruby scripts/ledger.rb <repo-root> --next 10  # rank open findings, pick the next theme
 ```
 
-- `overlays/<repo>.ledger.yml` holds one entry per finding id (check, path and
+- The project's `ledger.yml` holds one entry per finding id (check, path and
   subject, so ids survive line shifts) with `open` or `fixed`, `first_seen`, and
   `fixed_on`. Commit it: its git history is the trend line.
 - Ranking is weight × (1 + commits in the last 90 days) × size. Files people keep
@@ -157,4 +164,4 @@ ruby ~/.claude/skills/fizzy-way/scripts/ledger.rb <repo-root> --next 10  # rank 
 - Work one theme at a time, in small PRs that each cite the wiki page, so reviewers
   learn the pattern while approving it.
 - Never edit the ledger to silence a finding. If the team decides a divergence is
-  deliberate, add it to `overlays/<repo>.yml` with a `why`.
+  deliberate, add it to the project's `accepted.yml` with a `why`.

@@ -8,12 +8,13 @@
 #   refresh.rb --verify         every cited SHA, quoted commit subject, and path checks out
 #   refresh.rb --evidence       append new DHH and team commits to wiki/evidence/
 #
-# FIZZY=~/path/to/fizzy overrides the checkout (default ~/Work/Vendor/fizzy).
+# The checkout comes from scripts/fizzy.rb: $FIZZY, or a clone the skill keeps in its cache.
 
 require "pathname"
+require_relative "fizzy"
 require "set"
 
-FIZZY = Pathname(ENV.fetch("FIZZY", File.expand_path("~/Work/Vendor/fizzy")))
+FIZZY = Fizzy.path
 WIKI = Pathname(__dir__).join("../wiki").expand_path
 UPSTREAM = "origin/main"
 PATH = %r{\A(?:app|config|db|lib|test|saas|bin|script|docs)/\S+|\A(?:STYLE|AGENTS|README)\.md\z|\AGemfile\z|\A\.rubocop\.yml\z}

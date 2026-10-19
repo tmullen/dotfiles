@@ -1,10 +1,11 @@
 require "minitest/autorun"
 require_relative "../check"
+require_relative "../fizzy"
 
 # The checker is only trustworthy if it flags bad code and leaves Fizzy (nearly) alone.
 class CheckTest < Minitest::Test
   FIXTURE = File.expand_path("fixture", __dir__)
-  FIZZY = File.expand_path("~/Work/Vendor/fizzy")
+  FIZZY = ENV["FIZZY"] || Fizzy.cache # calibration skips rather than cloning
 
   # Fizzy's accepted residue — each a judgment call, documented in review.md.
   FIZZY_BASELINE = [

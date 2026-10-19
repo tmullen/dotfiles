@@ -10,3 +10,4 @@
 - 2026-10-18 — Ledger: scripts/ledger.rb + overlays/factory.ledger.yml (116 open). Stable finding ids (check + path + subject, repeats numbered); dropped the member-block route finding (redundant, unstable). Ranking: weight × (1 + 90-day churn) × size.
 - 2026-10-18 — Added components/cards-boards-columns (core domain; reuse recipe for slimming a big core model). Verified SHAs, subjects, fixtures.
 - 2026-10-18 — refresh.rb: per-page staleness from snapshot + sources, --mark/--bump-clean/--evidence/--verify. First cycle: 27d0d2e6b → 55bb38335 (Pele replaces Mermaid; decisions #11 gained the example).
+- 2026-10-18 — Portability: Fizzy checkout via scripts/fizzy.rb ($FIZZY or a cached clone); project data moved out of the skill to $FIZZY_WAY_HOME/<repo>/ (default ~/.config/fizzy-way/<repo>/: rules.md, accepted.yml, ledger.yml); overlays/ removed. Script paths are relative to the skill.

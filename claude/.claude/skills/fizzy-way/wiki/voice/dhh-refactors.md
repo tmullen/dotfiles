@@ -14,7 +14,7 @@ and *"Make it work. But then you should refactor it to make it nice."*
 ([On Writing Software Well #7](https://www.youtube.com/watch?v=Yd3j3ZEx6DU))
 
 Each theme below gives the rule, the test he applies, and one example. "Evidence"
-lists SHAs in `~/Work/Vendor/fizzy`. Open them only when the rule is not enough.
+lists Fizzy commit SHAs. Open them only when the rule is not enough.
 
 ## 1. Anemic code gets inlined
 

@@ -12,7 +12,7 @@ and the reasoning, distilled from Fizzy. It does not document the Fizzy product.
 practice, and what DHH and the team refactor and why. Sources are the code, the git
 history, PRs, dev.37signals.com, DHH's writing, and podcasts.
 **Doesn't cover:** UI/CSS design, deployment ops (see Fizzy's `docs/`), or the SaaS-only `saas/` engine beyond where it plugs in.
-**Current as of:** the snapshot above. Pages cite paths, so check them against `~/Work/Vendor/fizzy`.
+**Current as of:** the snapshot above. Pages cite paths, so check them against the Fizzy checkout (see SKILL.md).
 
 Page shape: *Answer → Shape → Key code → Why (cited, or marked inference) → Testing → Reuse recipe → Related*.
 Each page's `use_when` frontmatter lists more trigger phrases.

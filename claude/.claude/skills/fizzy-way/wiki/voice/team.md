@@ -24,8 +24,8 @@ high-level APIs on domain models"* ([Vanilla Rails is plenty](https://dev.37sign
 On review: *"computers don't execute big pictures, they execute lines of code, so how
 you compose those matters too"* ([Minding the small stuff](https://dev.37signals.com/minding-the-small-stuff-in-pr-reviews/)).
 
-Each theme gives the rule, the test, a short example, and evidence (SHAs in
-`~/Work/Vendor/fizzy`, PR numbers on basecamp/fizzy). Attribution is inline. Open the
+Each theme gives the rule, the test, a short example, and evidence (Fizzy commit
+SHAs, PR numbers on basecamp/fizzy). Attribution is inline. Open the
 evidence files only when a rule isn't enough.
 
 ## 1. A param that keeps getting passed along means an object is missing

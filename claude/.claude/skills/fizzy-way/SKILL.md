@@ -6,7 +6,11 @@ description: How 37signals builds a Rails SaaS app, distilled from Fizzy (DHH's 
 # The Fizzy way
 
 The wiki is in `wiki/`, and `wiki/index.md` is its map. The primary source is the
-Fizzy checkout at `~/Work/Vendor/fizzy`, pinned at the snapshot SHA in `wiki/index.md`.
+Fizzy checkout, pinned at the snapshot SHA in `wiki/index.md`. `ruby scripts/fizzy.rb` prints
+its path, using `$FIZZY` if set and otherwise cloning Fizzy into the skill's cache on first use. For a
+single lookup, GitHub works without a checkout:
+`https://github.com/basecamp/fizzy/blob/<snapshot>/<path>` and `…/commit/<sha>`.
+Script paths in this skill are relative to its directory, the folder holding this file.
 Every page lists its `sources:` so you can open the real code.
 
 ## Modes
@@ -15,7 +19,7 @@ Every page lists its `sources:` so you can open the real code.
 1. Read `wiki/index.md` and pick a page by its `use_when` triggers.
 2. Answer from the page's *Answer* and *Shape* sections.
 3. If the question goes deeper than the page, open the files in `sources:`. If the
-   wiki has no page, grep `~/Work/Vendor/fizzy/app` for the concept and say the
+   wiki has no page, grep the checkout's `app/` for the concept and say the
    answer came from code, not the wiki.
 
 **Build** ("add notifications to my app the Fizzy way")
@@ -26,8 +30,8 @@ Every page lists its `sources:` so you can open the real code.
 3. Match the target repo's house rules where they conflict, and say so.
 
 **Review** ("what would DHH/37signals change?", "would they merge this?", a taste pass)
-Follow `review.md`. In short: read the house rules (and `overlays/<repo>.md` if one
-exists), run `scripts/check.rb`, judge each candidate against its wiki page, and write
+Follow `review.md`. In short: read the house rules (and the project folder's `rules.md`, if
+one exists), run `scripts/check.rb`, judge each candidate against its wiki page, and write
 up findings anchored at `file:line` with the rewrite and the Fizzy precedent.
 
 ## Rules
@@ -46,7 +50,7 @@ distilled from (`sources:`). `scripts/refresh.rb` uses both:
 
 1. `ruby scripts/refresh.rb` fetches Fizzy and reports stale pages (their sources
    changed), changed app code no page cites, and new DHH and team commits.
-2. Pull the Fizzy checkout (`git -C ~/Work/Vendor/fizzy pull --ff-only`). Update each
+2. Pull the Fizzy checkout (`git -C "$(ruby scripts/fizzy.rb)" pull --ff-only`). Update each
    stale page from the diff, then run `--mark <page>...`.
 3. `--bump-clean` advances every page whose sources didn't change. `--evidence` appends
    new commits to `wiki/evidence/`. Read new DHH commits against `voice/dhh-refactors.md`.

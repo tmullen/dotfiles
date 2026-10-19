@@ -70,14 +70,16 @@ class Repo
     @toplevel ||= Pathname(`git -C #{root} rev-parse --show-toplevel 2>/dev/null`.strip.presence || root)
   end
 
-  # Per-repo files under overlays/, keyed by the git repo's name: factory.yml, factory.ledger.yml.
-  def overlay(suffix)
-    Pathname(__dir__).join("../overlays/#{toplevel.basename}#{suffix}")
+  # What we know about one project lives outside the skill, keyed by the git repo's name:
+  # $FIZZY_WAY_HOME/<repo>/ (default ~/.config/fizzy-way/<repo>/) holds accepted.yml, ledger.yml, rules.md.
+  def project(file)
+    home = ENV.fetch("FIZZY_WAY_HOME") { File.join(ENV.fetch("XDG_CONFIG_HOME", File.expand_path("~/.config")), "fizzy-way") }
+    Pathname(home).join(toplevel.basename.to_s, file)
   end
 
-  # Divergences the repo made on purpose.
+  # Divergences the project made on purpose.
   def accepted
-    @accepted ||= overlay(".yml").exist? ? YAML.load_file(overlay(".yml")).fetch("accepted", []) : []
+    @accepted ||= project("accepted.yml").exist? ? YAML.load_file(project("accepted.yml")).fetch("accepted", []) : []
   end
 
   def accepted?(finding)
